@@ -6,7 +6,11 @@
   :commands (vterm vterm-other-window)
   :init
   (setq vterm-max-scrollback 10000
-        vterm-shell (or (getenv "SHELL") "fish")))
+        vterm-shell (or (getenv "SHELL") "fish"))
+  :config
+  ;; we repurpose C-h as backspace globally; vterm leaves C-h unbound (for Emacs
+  ;; help), so send it to the shell here like the other readline keys
+  (define-key vterm-mode-map (kbd "C-h") #'vterm-send-backspace))
 
 (defun zmacs/project-vterm ()
   "Open (or switch to) a vterm rooted at the current project."

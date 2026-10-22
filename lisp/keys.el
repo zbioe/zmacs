@@ -1,24 +1,21 @@
 ;;; keys.el -*- lexical-binding: t; -*-
 
-;; Emacs movement keys, universal and terminal-safe: arrow keys behave the same
-;; inside vterm, dired, menus and text, so translate these at the input level.
-;; (the vim C-j/C-k/C-l set is NOT translated: it would steal newline/kill/clear
-;; from the shell in vterm; those are bound per-context below instead.)
-(define-key key-translation-map (kbd "C-p") (kbd "<up>"))
-(define-key key-translation-map (kbd "C-n") (kbd "<down>"))
-(define-key key-translation-map (kbd "C-f") (kbd "<right>"))
-(define-key key-translation-map (kbd "C-b") (kbd "<left>"))
+;; Keybinding model (follows how Doom/evil layer maps, never key-translation):
+;;   evil-<state>-state-map  >  minor maps  >  buffer-local map  >  global-map
+;; so a global binding is shadowed by a buffer's own map (vterm keeps its keys),
+;; and a single-key binding never disturbs a prefix sequence (C-x C-f is intact).
 
-;; Escape cancels prompts and popups. evil keeps its own ESC inside its states
-;; (state maps outrank the global map), so insert->normal still works.
+;; --- global (emacs) layer ---------------------------------------------------
+;; C-f/C-n/C-p/C-b are already forward-char/next-line/... in global-map, which is
+;; what we want while typing and in the minibuffer; only add the two that differ:
+(global-set-key (kbd "C-h") #'delete-backward-char) ; backspace (vterm shadows it)
+(global-set-key (kbd "C-w") #'backward-kill-word)   ; kill word (vterm shadows it)
+(global-set-key (kbd "C-?") #'help-command)         ; help moved off C-h
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
-
-;; C-h is used for movement/backspace below, so help moves to F1 (default) and C-?
-(global-set-key (kbd "C-?") 'help-command)
 (with-eval-after-load 'which-key
   (setq which-key-use-C-h-commands nil))
 
-;; --- completion menus: vim verticals and cursor horizontals ---
+;; --- completion menus: vim verticals, cursor horizontals --------------------
 (with-eval-after-load 'vertico
   (dolist (b '(("C-j" . vertico-next)
                ("C-k" . vertico-previous)
@@ -33,15 +30,16 @@
                ("C-k" . corfu-previous)))
     (define-key corfu-map (kbd (car b)) (cdr b))))
 
-;; --- while typing (insert state + plain minibuffers), not in the terminal ---
-(define-key minibuffer-local-map (kbd "C-w") #'backward-kill-word)
+;; --- evil: movement in normal/motion buffers (dired, help, magit, code) -----
 (with-eval-after-load 'evil
-  (dolist (b '(("C-h" . delete-backward-char)   ; backspace
-               ("C-w" . backward-kill-word)     ; kill previous word
-               ("C-k" . previous-line)          ; up
-               ("C-j" . next-line)              ; down
-               ("C-l" . forward-char)))         ; right
-    (define-key evil-insert-state-map (kbd (car b)) (cdr b)))
+  (dolist (map (list evil-normal-state-map evil-motion-state-map))
+    (define-key map (kbd "C-n") #'evil-next-line)
+    (define-key map (kbd "C-p") #'evil-previous-line)
+    (define-key map (kbd "C-j") #'evil-next-line)
+    (define-key map (kbd "C-k") #'evil-previous-line)
+    (define-key map (kbd "C-f") #'evil-forward-char)
+    (define-key map (kbd "C-b") #'evil-backward-char)
+    (define-key map (kbd "C-l") #'evil-forward-char))
 
   ;; macros move to Q; q is freed so special buffers' own q (quit, via
   ;; evil-collection) shows through and a plain buffer's q does nothing
