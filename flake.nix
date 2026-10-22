@@ -59,6 +59,7 @@
           nixElpa = pkgs.lib.concatStringsSep ":" [
             "${emacsPkgs.vterm}/share/emacs/site-lisp/elpa"
             "${emacsPkgs.pdf-tools}/share/emacs/site-lisp/elpa"
+            "${emacsPkgs.mu4e}/share/emacs/site-lisp/elpa"
           ];
 
           # the init.el twist would write, concatenated from initFiles
@@ -77,12 +78,19 @@
           envVars = ''
             export ZMACS_NIX_ELPA="${nixElpa}"
             export ZMACS_TREESIT_PATH="${grammars}/lib"
+            export ZMACS_MU_BINARY="${pkgs.mu}/bin/mu"
           '';
 
           # standalone launcher: its own writable init dir, refreshed each run
           # so the config stays current; state (eln-cache, ...) persists
           zmacs = pkgs.writeShellApplication {
             name = "zmacs";
+            # mu and mbsync for mail; the rest (servers, rg, fd) come from the
+            # ambient PATH (dotnix) when run there
+            runtimeInputs = [
+              pkgs.mu
+              pkgs.isync
+            ];
             text = ''
               ${envVars}
               dir="''${XDG_DATA_HOME:-$HOME/.local/share}/zmacs"

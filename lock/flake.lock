@@ -64,6 +64,22 @@
         "type": "github"
       }
     },
+    "casual": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788211753,
+        "narHash": "sha256-+xbxeAPqEHb+yaSoJJqMfTfm5Xgt7++KYxZDB4KQ64w=",
+        "owner": "kickingvegas",
+        "repo": "casual",
+        "rev": "60259e256e34d4f6ae64ef950c740cacbe8b4d37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kickingvegas",
+        "repo": "casual",
+        "type": "github"
+      }
+    },
     "compat": {
       "flake": false,
       "locked": {
@@ -174,6 +190,19 @@
         "owner": "minad",
         "repo": "corfu",
         "type": "github"
+      }
+    },
+    "csv-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723194179,
+        "narHash": "sha256-ErzKM6usjp2FrrbYwadJCfiivenMCDD9uojwJbzV3co=",
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar"
       }
     },
     "dash": {
@@ -726,6 +755,7 @@
         "apheleia": "apheleia",
         "avy": "avy",
         "cape": "cape",
+        "casual": "casual",
         "compat": "compat",
         "cond-let": "cond-let",
         "consult": "consult",
@@ -733,6 +763,7 @@
         "consult-eglot": "consult-eglot",
         "consult-flycheck": "consult-flycheck",
         "corfu": "corfu",
+        "csv-mode": "csv-mode",
         "dash": "dash",
         "doom-modeline": "doom-modeline",
         "doom-themes": "doom-themes",

@@ -25,6 +25,12 @@
       repo = "cape";
       type = "github";
     };
+    casual = {
+      flake = false;
+      owner = "kickingvegas";
+      repo = "casual";
+      type = "github";
+    };
     compat = {
       flake = false;
       owner = "emacs-compat";
@@ -66,6 +72,11 @@
       owner = "minad";
       repo = "corfu";
       type = "github";
+    };
+    csv-mode = {
+      flake = false;
+      type = "tarball";
+      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar";
     };
     dash = {
       flake = false;

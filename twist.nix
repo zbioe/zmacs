@@ -17,7 +17,9 @@
     ./lisp/org.el
     ./lisp/vterm.el
     ./lisp/pdf.el
+    ./lisp/mail.el
     ./lisp/search.el
+    ./lisp/help.el
   ];
   lockDir = ./lock;
   registries = [
