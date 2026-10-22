@@ -32,7 +32,10 @@
            '((nix-ts-mode . ("nixd"))
              ((elixir-ts-mode heex-ts-mode) . ("elixir-ls"))
              (terraform-mode . ("terraform-ls" "serve"))
-             (yaml-ts-mode . ("yaml-language-server" "--stdio"))))
+             (yaml-ts-mode . ("yaml-language-server" "--stdio"))
+             (python-ts-mode . ("basedpyright-langserver" "--stdio"))
+             (lua-ts-mode . ("lua-language-server"))
+             ((c-ts-mode c++-ts-mode) . ("clangd"))))
     (add-to-list 'eglot-server-programs entry))
   ;; let apheleia own formatting; eglot only does diagnostics, nav, completion
   (setq eglot-ignored-server-capabilities
