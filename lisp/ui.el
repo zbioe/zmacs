@@ -12,10 +12,6 @@
   (nerd-icons-completion-mode 1)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
-(use-package nerd-icons-dired
-  :ensure t
-  :hook (dired-mode . nerd-icons-dired-mode))
-
 ;; colours follow dotnix's `theme' state when present, else a built-in fallback
 (use-package doom-themes
   :ensure t
