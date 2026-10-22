@@ -26,11 +26,15 @@
   ;; dotnix's `theme' writes this file: it sets `doom-theme' and, when Emacs is
   ;; already up, swaps the theme live. During startup it only sets the variable,
   ;; so apply it ourselves; fall back to doom-one when there is no state file.
-  (ignore-errors
-    (load (expand-file-name
-           "theme/current/emacs.el"
-           (or (getenv "XDG_STATE_HOME") "~/.local/state"))
-          t t))
+  ;; the generated file has no lexical-binding cookie; don't warn about it
+  (require 'warnings)
+  (let ((warning-minimum-level :error)
+        (warning-minimum-log-level :error))
+    (ignore-errors
+      (load (expand-file-name
+             "theme/current/emacs.el"
+             (or (getenv "XDG_STATE_HOME") "~/.local/state"))
+            t t)))
   (unless custom-enabled-themes
     (load-theme (or (bound-and-true-p doom-theme) 'doom-one) t))
   (require 'doom-themes-ext-org nil t)
