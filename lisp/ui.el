@@ -7,6 +7,7 @@
 
 (use-package nerd-icons-completion
   :ensure t
+  :demand t
   :after marginalia
   :config
   (nerd-icons-completion-mode 1)
@@ -32,6 +33,11 @@
   (require 'doom-themes-ext-org nil t)
   (when (fboundp 'doom-themes-org-config)
     (doom-themes-org-config)))
+
+;; dotnix generates base16 themes on top of it for schemes without a Doom theme
+(use-package base16-theme
+  :ensure t
+  :defer t)
 
 (use-package doom-modeline
   :ensure t

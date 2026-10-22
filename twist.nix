@@ -54,6 +54,8 @@
     }
   ];
   inputOverrides = {
+    # its -pkg.el has keywords after the requires, which twist can't parse
+    base16-theme = _: _: { packageRequires = { }; };
     # savannah.gnu.org is often down; pull tramp from a mirror
     tramp = _: _: {
       origin = {

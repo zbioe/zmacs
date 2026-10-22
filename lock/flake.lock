@@ -64,6 +64,22 @@
         "type": "github"
       }
     },
+    "base16-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791087900,
+        "narHash": "sha256-imYrAnWHHUPDoUqKLCihAg5tenzxSq5nmBImA7mnDso=",
+        "owner": "tinted-theming",
+        "repo": "base16-emacs",
+        "rev": "3e88034f61b9114a560bb5e89ef7337a43dd5d1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tinted-theming",
+        "repo": "base16-emacs",
+        "type": "github"
+      }
+    },
     "cape": {
       "flake": false,
       "locked": {
@@ -765,22 +781,6 @@
         "type": "github"
       }
     },
-    "nerd-icons-dired": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776275170,
-        "narHash": "sha256-m2eiGXlf4ikjY4Isk9feUDsgYIJ7EiQRziD65usARmI=",
-        "owner": "rainstormstudio",
-        "repo": "nerd-icons-dired",
-        "rev": "104acd8879528b8115589f35f1bbcbe231ad732f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rainstormstudio",
-        "repo": "nerd-icons-dired",
-        "type": "github"
-      }
-    },
     "nix-ts-mode": {
       "flake": false,
       "locked": {
@@ -899,6 +899,7 @@
         "ansible": "ansible",
         "apheleia": "apheleia",
         "avy": "avy",
+        "base16-theme": "base16-theme",
         "cape": "cape",
         "casual": "casual",
         "compat": "compat",
@@ -943,7 +944,6 @@
         "markdown-mode": "markdown-mode",
         "nerd-icons": "nerd-icons",
         "nerd-icons-completion": "nerd-icons-completion",
-        "nerd-icons-dired": "nerd-icons-dired",
         "nix-ts-mode": "nix-ts-mode",
         "orderless": "orderless",
         "org-appear": "org-appear",

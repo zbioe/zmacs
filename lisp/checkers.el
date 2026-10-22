@@ -22,6 +22,7 @@
 
 (use-package flycheck-eglot
   :ensure t
+  :demand t
   :after (flycheck eglot)
   :config
   (global-flycheck-eglot-mode 1))

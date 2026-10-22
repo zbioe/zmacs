@@ -11,6 +11,7 @@
 ;; HTTP requests from org buffers: handy for poking a Phoenix/REST API
 (use-package verb
   :ensure t
+  :demand t
   :after org
   :config
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))

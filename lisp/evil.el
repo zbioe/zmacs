@@ -66,18 +66,21 @@
 
 (use-package evil-collection
   :ensure t
+  :demand t
   :after evil
   :config
   (evil-collection-init))
 
 (use-package evil-surround
   :ensure t
+  :demand t
   :after evil
   :config
   (global-evil-surround-mode 1))
 
 (use-package evil-commentary
   :ensure t
+  :demand t
   :after evil
   :config
   (evil-commentary-mode 1))

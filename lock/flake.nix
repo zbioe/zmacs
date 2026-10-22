@@ -25,6 +25,12 @@
       repo = "avy";
       type = "github";
     };
+    base16-theme = {
+      flake = false;
+      owner = "tinted-theming";
+      repo = "base16-emacs";
+      type = "github";
+    };
     cape = {
       flake = false;
       owner = "minad";
@@ -286,12 +292,6 @@
       flake = false;
       owner = "rainstormstudio";
       repo = "nerd-icons-completion";
-      type = "github";
-    };
-    nerd-icons-dired = {
-      flake = false;
-      owner = "rainstormstudio";
-      repo = "nerd-icons-dired";
       type = "github";
     };
     nix-ts-mode = {
