@@ -48,24 +48,72 @@
       packages = eachSystem (
         system: pkgs:
         let
-          emacs = twist.lib.makeEnv (import ./twist.nix {
-            inherit inputs pkgs;
-            emacsPackage = pkgs.emacs-pgtk;
-          });
+          emacsPackage = pkgs.emacs-pgtk;
+          twistConfig = import ./twist.nix { inherit inputs pkgs emacsPackage; };
+          emacs = twist.lib.makeEnv twistConfig;
+
+          # natives twist doesn't build well (compiled modules, grammars) come
+          # from nixpkgs and are put on the load-path by early-init.el
+          emacsPkgs = pkgs.emacsPackagesFor emacsPackage;
+          grammars = emacsPkgs.treesit-grammars.with-all-grammars;
+          nixElpa = pkgs.lib.concatStringsSep ":" [
+            "${emacsPkgs.vterm}/share/emacs/site-lisp/elpa"
+            "${emacsPkgs.pdf-tools}/share/emacs/site-lisp/elpa"
+          ];
+
+          # the init.el twist would write, concatenated from initFiles
+          initFile = pkgs.runCommandLocal "zmacs-init" { } ''
+            mkdir -p $out
+            : > $out/init.el
+            for f in ${builtins.concatStringsSep " " twistConfig.initFiles}; do
+              cat "$f" >> $out/init.el
+              echo >> $out/init.el
+            done
+            cp ${./early-init.el} $out/early-init.el
+          '';
+
+          # the environment variables that point Emacs at the natives; shared
+          # by the standalone launcher and (later) the dotnix home-manager module
+          envVars = ''
+            export ZMACS_NIX_ELPA="${nixElpa}"
+            export ZMACS_TREESIT_PATH="${grammars}/lib"
+          '';
+
+          # standalone launcher: its own writable init dir, refreshed each run
+          # so the config stays current; state (eln-cache, ...) persists
+          zmacs = pkgs.writeShellApplication {
+            name = "zmacs";
+            text = ''
+              ${envVars}
+              dir="''${XDG_DATA_HOME:-$HOME/.local/share}/zmacs"
+              mkdir -p "$dir"
+              install -m600 ${initFile}/init.el "$dir/init.el"
+              install -m600 ${initFile}/early-init.el "$dir/early-init.el"
+              exec ${emacs}/bin/emacs --init-directory="$dir" "$@"
+            '';
+          };
         in
         {
-          inherit emacs;
-          default = emacs;
+          inherit emacs grammars;
+          default = zmacs;
+          # exposed so dotnix can set the same env for its wrapper/daemon
+          nix-elpa = pkgs.writeText "zmacs-nix-elpa" nixElpa;
         }
       );
 
-      # `nix run .#update` refreshes the recipe inputs, `nix run .#lock`
-      # (re)writes ./lock from them
+      # `nix run .#update` refreshes recipe inputs, `.#lock` rewrites ./lock,
+      # `.#default` runs the editor
       apps = eachSystem (
-        system: _pkgs: self.packages.${system}.emacs.makeApps { lockDirName = "lock"; }
+        system: _pkgs:
+        (self.packages.${system}.emacs.makeApps { lockDirName = "lock"; })
+        // {
+          default = {
+            type = "app";
+            program = "${self.packages.${system}.default}/bin/zmacs";
+          };
+        }
       );
 
-      # consumed by dotnix: set programs.emacs-twist.config to packages.<sys>.emacs
       homeModules.default = twist.homeModules.emacs-twist;
 
       devShells = eachSystem (

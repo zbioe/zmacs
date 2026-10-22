@@ -5,7 +5,20 @@
 }:
 {
   inherit pkgs emacsPackage;
-  initFiles = [ ./init.el ];
+  initFiles = [
+    ./init.el
+    ./lisp/ui.el
+    ./lisp/evil.el
+    ./lisp/completion.el
+    ./lisp/editor.el
+    ./lisp/lsp.el
+    ./lisp/checkers.el
+    ./lisp/lang.el
+    ./lisp/org.el
+    ./lisp/vterm.el
+    ./lisp/pdf.el
+    ./lisp/search.el
+  ];
   lockDir = ./lock;
   registries = [
     {
