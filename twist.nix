@@ -23,6 +23,7 @@
     ./lisp/spell.el
     ./lisp/help.el
     ./lisp/keys.el
+    ./lisp/activity.el
   ];
   lockDir = ./lock;
   registries = [

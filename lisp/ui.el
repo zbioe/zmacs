@@ -13,6 +13,29 @@
   (nerd-icons-completion-mode 1)
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
+(defun zmacs/system-background ()
+  "The desktop's background colour from dotnix's theme state, or nil."
+  (let ((css (expand-file-name "theme/current/gtk4.css"
+                               (or (getenv "XDG_STATE_HOME") "~/.local/state"))))
+    (when (file-readable-p css)
+      (with-temp-buffer
+        (insert-file-contents css)
+        (when (re-search-forward
+               "@define-color window_bg_color \\(#[[:xdigit:]]\\{6\\}\\);" nil t)
+          (match-string 1))))))
+
+(defun zmacs/match-system-background (&rest _)
+  "Paint every background surface with `zmacs/system-background'."
+  (when-let* ((bg (zmacs/system-background)))
+    (dolist (face '(default fringe header-line tab-bar tab-line
+                    mode-line mode-line-active mode-line-inactive
+                    line-number internal-border window-divider))
+      (when (facep face)
+        (set-face-attribute face nil :background bg)))
+    (dolist (face '(mode-line mode-line-active mode-line-inactive))
+      (when (facep face)
+        (set-face-attribute face nil :box nil)))))
+
 ;; colours follow dotnix's `theme' state when present, else a built-in fallback
 (use-package doom-themes
   :ensure t
@@ -23,6 +46,10 @@
   ;; dotnix's `theme' writes this file: it sets `doom-theme' and, when Emacs is
   ;; already up, swaps the theme live. During startup it only sets the variable,
   ;; so apply it ourselves; fall back to doom-one when there is no state file.
+  ;; the bar/terminal/GTK all paint base00 (gtk4.css `window_bg_color'); Doom
+  ;; themes pick their own, slightly different shades. Repaint every surface
+  ;; with it on each theme switch so Emacs and the bar read as one plane.
+  (add-hook 'enable-theme-functions #'zmacs/match-system-background)
   (ignore-errors
     (load (expand-file-name
            "theme/current/emacs.el"
