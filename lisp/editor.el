@@ -4,6 +4,39 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
+;; honour .editorconfig (built into Emacs 30+); dotnix ships one
+(use-package editorconfig
+  :demand t
+  :config
+  (editorconfig-mode 1))
+
+;; git changes in the fringe, kept in sync with magit
+(use-package diff-hl
+  :ensure t
+  :demand t
+  :hook ((dired-mode . diff-hl-dired-mode)
+         (magit-pre-refresh . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode 1)
+  (require 'diff-hl-flydiff nil t)
+  (when (fboundp 'diff-hl-flydiff-mode)
+    (diff-hl-flydiff-mode 1)))
+
+;; dired as a real file manager
+(use-package dirvish
+  :ensure t
+  :demand t
+  :config
+  (dirvish-override-dired-mode 1)
+  (setq dirvish-attributes '(nerd-icons file-size vc-state)))
+
+;; jump to definition without a language server (grep/tag heuristics)
+(use-package dumb-jump
+  :ensure t
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate 90))
+
 ;; per-project environment from direnv (dotnix dev shells, language servers)
 (use-package envrc
   :ensure t

@@ -1,6 +1,12 @@
 {
   description = "THIS IS AN AUTO-GENERATED FILE. PLEASE DON'T EDIT IT MANUALLY.";
   inputs = {
+    aio = {
+      flake = false;
+      owner = "skeeto";
+      repo = "emacs-aio";
+      type = "github";
+    };
     ansible = {
       flake = false;
       owner = "emacs-ansible";
@@ -84,6 +90,24 @@
       repo = "dash.el";
       type = "github";
     };
+    diff-hl = {
+      flake = false;
+      owner = "dgutov";
+      repo = "diff-hl";
+      type = "github";
+    };
+    dirvish = {
+      flake = false;
+      owner = "alexluigit";
+      repo = "dirvish";
+      type = "github";
+    };
+    docker = {
+      flake = false;
+      owner = "Silex";
+      repo = "docker.el";
+      type = "github";
+    };
     doom-modeline = {
       flake = false;
       owner = "seagle0128";
@@ -94,6 +118,18 @@
       flake = false;
       owner = "doomemacs";
       repo = "themes";
+      type = "github";
+    };
+    dumb-jump = {
+      flake = false;
+      owner = "jacktasia";
+      repo = "dumb-jump";
+      type = "github";
+    };
+    eldoc-box = {
+      flake = false;
+      owner = "casouri";
+      repo = "eldoc-box";
       type = "github";
     };
     elisp-refs = {
@@ -150,6 +186,12 @@
       repo = "evil-surround";
       type = "github";
     };
+    exunit = {
+      flake = false;
+      owner = "ananthakumaran";
+      repo = "exunit.el";
+      type = "github";
+    };
     "f" = {
       flake = false;
       owner = "rejeep";
@@ -168,6 +210,12 @@
       repo = "flycheck-eglot";
       type = "github";
     };
+    flyspell-correct = {
+      flake = false;
+      owner = "d12frosted";
+      repo = "flyspell-correct";
+      type = "github";
+    };
     hcl-mode = {
       flake = false;
       owner = "hcl-emacs";
@@ -184,6 +232,12 @@
       flake = false;
       owner = "tarsius";
       repo = "hl-todo";
+      type = "github";
+    };
+    indent-bars = {
+      flake = false;
+      owner = "jdtsmith";
+      repo = "indent-bars";
       type = "github";
     };
     inheritenv = {
@@ -294,10 +348,22 @@
       repo = "shrink-path.el";
       type = "gitlab";
     };
+    tablist = {
+      flake = false;
+      owner = "emacsorphanage";
+      repo = "tablist";
+      type = "github";
+    };
     terraform-mode = {
       flake = false;
       owner = "hcl-emacs";
       repo = "terraform-mode";
+      type = "github";
+    };
+    verb = {
+      flake = false;
+      owner = "federicotdn";
+      repo = "verb";
       type = "github";
     };
     vertico = {

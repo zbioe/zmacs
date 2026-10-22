@@ -67,3 +67,14 @@
                                       "/\\(?:tasks\\|handlers\\|roles\\|playbooks\\|group_vars\\|host_vars\\)/"
                                       buffer-file-name))
                             (ansible 1)))))
+
+;; run ExUnit tests from Elixir buffers (local leader: \ t ...)
+(use-package exunit
+  :ensure t
+  :hook (elixir-ts-mode . exunit-mode)
+  :config
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal exunit-mode-map
+      (kbd "<localleader>tt") #'exunit-verify-single
+      (kbd "<localleader>ta") #'exunit-verify
+      (kbd "<localleader>tr") #'exunit-rerun)))

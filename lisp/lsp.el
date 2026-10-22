@@ -44,3 +44,8 @@
 (use-package consult-eglot
   :ensure t
   :after (consult eglot))
+
+;; documentation and diagnostics in a childframe at point
+(use-package eldoc-box
+  :ensure t
+  :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode))

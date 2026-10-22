@@ -57,6 +57,15 @@
   :ensure t
   :hook (prog-mode . hl-todo-mode))
 
+;; tree-sitter-aware indentation guides
+(use-package indent-bars
+  :ensure t
+  :hook (prog-mode . indent-bars-mode)
+  :init
+  (setq indent-bars-treesit-support t
+        indent-bars-no-descend-string t
+        indent-bars-prefer-character t))
+
 (use-package helpful
   :ensure t
   :bind (([remap describe-function] . helpful-callable)
