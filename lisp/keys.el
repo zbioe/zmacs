@@ -1,7 +1,13 @@
 ;;; keys.el -*- lexical-binding: t; -*-
 
-;; These are bound per-context on purpose: a global key-translation would also
-;; rewrite the keys inside vterm, where C-h/C-w/C-k/... must reach the shell.
+;; Emacs movement keys, universal and terminal-safe: arrow keys behave the same
+;; inside vterm, dired, menus and text, so translate these at the input level.
+;; (the vim C-j/C-k/C-l set is NOT translated: it would steal newline/kill/clear
+;; from the shell in vterm; those are bound per-context below instead.)
+(define-key key-translation-map (kbd "C-p") (kbd "<up>"))
+(define-key key-translation-map (kbd "C-n") (kbd "<down>"))
+(define-key key-translation-map (kbd "C-f") (kbd "<right>"))
+(define-key key-translation-map (kbd "C-b") (kbd "<left>"))
 
 ;; Escape cancels prompts and popups. evil keeps its own ESC inside its states
 ;; (state maps outrank the global map), so insert->normal still works.
@@ -12,25 +18,19 @@
 (with-eval-after-load 'which-key
   (setq which-key-use-C-h-commands nil))
 
-;; --- completion menus: vim (hjkl) and emacs (pnfb) navigation ---
+;; --- completion menus: vim verticals and cursor horizontals ---
 (with-eval-after-load 'vertico
   (dolist (b '(("C-j" . vertico-next)
                ("C-k" . vertico-previous)
-               ("C-n" . vertico-next)
-               ("C-p" . vertico-previous)
                ("C-h" . backward-char)
                ("C-l" . forward-char)
-               ("C-f" . forward-char)
-               ("C-b" . backward-char)
                ("C-w" . backward-kill-word)
                ("<escape>" . abort-minibuffers)))
     (define-key vertico-map (kbd (car b)) (cdr b))))
 
 (with-eval-after-load 'corfu
   (dolist (b '(("C-j" . corfu-next)
-               ("C-k" . corfu-previous)
-               ("C-n" . corfu-next)
-               ("C-p" . corfu-previous)))
+               ("C-k" . corfu-previous)))
     (define-key corfu-map (kbd (car b)) (cdr b))))
 
 ;; --- while typing (insert state + plain minibuffers), not in the terminal ---
@@ -40,11 +40,7 @@
                ("C-w" . backward-kill-word)     ; kill previous word
                ("C-k" . previous-line)          ; up
                ("C-j" . next-line)              ; down
-               ("C-l" . forward-char)           ; right
-               ("C-f" . forward-char)
-               ("C-b" . backward-char)
-               ("C-p" . previous-line)
-               ("C-n" . next-line)))
+               ("C-l" . forward-char)))         ; right
     (define-key evil-insert-state-map (kbd (car b)) (cdr b)))
 
   ;; macros move to Q; q is freed so special buffers' own q (quit, via
