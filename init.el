@@ -1,10 +1,13 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; twist concatenates the files in `initFiles' (flake twist.nix) into this one
-;; and builds every package it sees under `:ensure t'; keep package.el out
-(require 'use-package)
-(setq use-package-ensure-function #'ignore
-      use-package-always-defer t)
+;; and builds every package it sees under `:ensure t'; keep package.el out.
+;; The result is byte-compiled at build time, and these settings shape how
+;; `use-package' expands, so they must hold while compiling too.
+(eval-and-compile
+  (require 'use-package)
+  (setq use-package-ensure-function #'ignore
+        use-package-always-defer t))
 
 ;;; Defaults
 

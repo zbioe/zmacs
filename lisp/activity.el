@@ -5,7 +5,6 @@
 ;; commands while a frame has focus. aw-watcher-emacs-input_HOST: every minute,
 ;; how much was typed and which commands ran.
 
-(require 'url)
 (require 'json)
 (require 'subr-x)
 (require 'cl-lib)
@@ -32,14 +31,18 @@
 (defun zmacs-aw--bucket (kind)
   (format "aw-watcher-emacs%s_%s" kind zmacs-aw-host))
 
+;; curl, not url.el: creating a bucket that exists answers 304, which url-http
+;; always tries to serve from its (empty) cache, erroring in the process filter
 (defun zmacs-aw--post (path body)
-  (let ((url-request-method "POST")
-        (url-request-extra-headers '(("Content-Type" . "application/json")))
-        (url-request-data (encode-coding-string (json-encode body) 'utf-8)))
-    (ignore-errors
-      (url-retrieve (concat zmacs-aw-url path)
-                    (lambda (_) (kill-buffer (current-buffer)))
-                    nil t t))))
+  (ignore-errors
+    (let ((proc (make-process
+                 :name "zmacs-aw" :buffer nil :noquery t
+                 :connection-type 'pipe :sentinel #'ignore
+                 :command (list "curl" "-s" "-o" "/dev/null" "-X" "POST"
+                                "-H" "Content-Type: application/json"
+                                "--data-binary" "@-" (concat zmacs-aw-url path)))))
+      (process-send-string proc (encode-coding-string (json-encode body) 'utf-8))
+      (process-send-eof proc))))
 
 (defun zmacs-aw--now ()
   (format-time-string "%FT%T.%3NZ" nil t))

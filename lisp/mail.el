@@ -47,3 +47,12 @@
                   (smtpmail-smtp-service . 587)
                   (smtpmail-smtp-user . "iuryfukuda@gmail.com")
                   (smtpmail-stream-type . starttls))))))
+
+;; Proton's Bridge serves its own certificate on localhost; replies go out
+;; from the address in the header
+(with-eval-after-load 'gnutls
+  (add-to-list 'gnutls-trustfiles
+               (expand-file-name "~/.config/protonmail/bridge-v3/cert.pem")))
+(setq mail-specify-envelope-from t
+      mail-envelope-from 'header
+      message-sendmail-envelope-from 'header)

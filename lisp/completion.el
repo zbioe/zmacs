@@ -57,11 +57,12 @@
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
+;; loaded with the first buffer that can use it, not at startup
 (use-package yasnippet
   :ensure t
-  :demand t
+  :hook ((prog-mode text-mode conf-mode) . yas-minor-mode)
   :config
-  (yas-global-mode 1))
+  (yas-reload-all))
 
 (use-package yasnippet-snippets
   :ensure t

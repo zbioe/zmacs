@@ -78,3 +78,17 @@
       (kbd "<localleader>tt") #'exunit-verify-single
       (kbd "<localleader>ta") #'exunit-verify
       (kbd "<localleader>tr") #'exunit-rerun)))
+
+;; diagrams: mermaid-cli and plantuml come from dotnix
+(use-package mermaid-mode
+  :ensure t
+  :mode "\\.mmd\\'"
+  :init
+  (setq mermaid-mmdc-location "mmdc"))
+
+(use-package plantuml-mode
+  :ensure t
+  :mode "\\.puml\\'"
+  :init
+  (setq plantuml-default-exec-mode 'executable
+        org-plantuml-exec-mode 'plantuml))

@@ -15,3 +15,10 @@
   :after org
   :config
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
+;; OpenStreetMap in a buffer, starting over São Paulo
+(use-package osm
+  :ensure t
+  :commands (osm-home osm-search osm-goto)
+  :init
+  (setq osm-home '(-23.55 -46.63 12)))

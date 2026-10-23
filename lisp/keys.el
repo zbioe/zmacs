@@ -45,3 +45,13 @@
   ;; evil-collection) shows through and a plain buffer's q does nothing
   (define-key evil-normal-state-map "Q" #'evil-record-macro)
   (define-key evil-normal-state-map "q" nil))
+
+;; --- carried over from the Doom config ---------------------------------------
+(global-set-key (kbd "M-p") #'mark-paragraph)
+(global-set-key (kbd "M-h") #'backward-kill-word)
+
+;; base64 without line breaks with a prefix argument
+(defun zmacs/base64-encode-region-prefix-arg (&rest _args)
+  "Pass the prefix argument as `base64-encode-region's NO-LINE-BREAK."
+  (interactive "r\nP"))
+(advice-add 'base64-encode-region :before #'zmacs/base64-encode-region-prefix-arg)

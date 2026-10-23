@@ -90,10 +90,22 @@
       type = "tarball";
       url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar";
     };
+    dape = {
+      flake = false;
+      owner = "svaante";
+      repo = "dape";
+      type = "github";
+    };
     dash = {
       flake = false;
       owner = "magnars";
       repo = "dash.el";
+      type = "github";
+    };
+    deflate = {
+      flake = false;
+      owner = "skuro";
+      repo = "deflate";
       type = "github";
     };
     diff-hl = {
@@ -216,6 +228,12 @@
       repo = "flycheck-eglot";
       type = "github";
     };
+    flycheck-golangci-lint = {
+      flake = false;
+      owner = "weijiangan";
+      repo = "flycheck-golangci-lint";
+      type = "github";
+    };
     flyspell-correct = {
       flake = false;
       owner = "d12frosted";
@@ -252,6 +270,12 @@
       repo = "inheritenv";
       type = "github";
     };
+    langtool = {
+      flake = false;
+      owner = "mhayashi1120";
+      repo = "Emacs-langtool";
+      type = "github";
+    };
     llama = {
       flake = false;
       owner = "tarsius";
@@ -280,6 +304,12 @@
       flake = false;
       owner = "jrblevin";
       repo = "markdown-mode";
+      type = "github";
+    };
+    mermaid-mode = {
+      flake = false;
+      owner = "abrochard";
+      repo = "mermaid-mode";
       type = "github";
     };
     nerd-icons = {
@@ -324,6 +354,24 @@
       repo = "org-roam";
       type = "github";
     };
+    org-roam-ui = {
+      flake = false;
+      owner = "org-roam";
+      repo = "org-roam-ui";
+      type = "github";
+    };
+    osm = {
+      flake = false;
+      owner = "minad";
+      repo = "osm";
+      type = "github";
+    };
+    plantuml-mode = {
+      flake = false;
+      owner = "skuro";
+      repo = "plantuml-mode";
+      type = "github";
+    };
     popper = {
       flake = false;
       owner = "karthink";
@@ -347,6 +395,12 @@
       owner = "bennya";
       repo = "shrink-path.el";
       type = "gitlab";
+    };
+    simple-httpd = {
+      flake = false;
+      owner = "skeeto";
+      repo = "emacs-web-server";
+      type = "github";
     };
     tablist = {
       flake = false;
@@ -382,6 +436,12 @@
       flake = false;
       owner = "fxbois";
       repo = "web-mode";
+      type = "github";
+    };
+    websocket = {
+      flake = false;
+      owner = "ahyatt";
+      repo = "emacs-websocket";
       type = "github";
     };
     wgrep = {

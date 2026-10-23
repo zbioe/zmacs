@@ -63,7 +63,9 @@
           ];
 
           # the init.el twist would write, concatenated from initFiles
-          initFile = pkgs.runCommandLocal "zmacs-init" { } ''
+          # byte-compiled so startup doesn't macroexpand every use-package form;
+          # early-init puts the natives on load-path so their macros resolve
+          initFile = pkgs.runCommandLocal "zmacs-init" { ZMACS_NIX_ELPA = nixElpa; } ''
             mkdir -p $out
             : > $out/init.el
             for f in ${builtins.concatStringsSep " " twistConfig.initFiles}; do
@@ -71,6 +73,9 @@
               echo >> $out/init.el
             done
             cp ${./early-init.el} $out/early-init.el
+            export HOME=$TMPDIR
+            ${emacs}/bin/emacs --batch -l $out/early-init.el \
+              -f batch-byte-compile $out/init.el
           '';
 
           # the environment variables that point Emacs at the natives; shared
@@ -96,6 +101,7 @@
               dir="''${XDG_DATA_HOME:-$HOME/.local/share}/zmacs"
               mkdir -p "$dir"
               install -m600 ${initFile}/init.el "$dir/init.el"
+              install -m600 ${initFile}/init.elc "$dir/init.elc"
               install -m600 ${initFile}/early-init.el "$dir/early-init.el"
               exec ${emacs}/bin/emacs --init-directory="$dir" "$@"
             '';

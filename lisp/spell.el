@@ -14,3 +14,11 @@
   :init
   (with-eval-after-load 'evil
     (evil-define-key 'normal 'global (kbd "<leader>cs") #'flyspell-correct-wrapper)))
+
+;; grammar through LanguageTool (dotnix ships it)
+(use-package langtool
+  :ensure t
+  :commands (langtool-check langtool-check-done langtool-correct-buffer)
+  :init
+  (setq langtool-bin "languagetool-commandline"
+        langtool-default-language "en-US"))

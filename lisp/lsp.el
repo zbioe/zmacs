@@ -49,3 +49,19 @@
 (use-package eldoc-box
   :ensure t
   :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode))
+
+;; nixd knows this host's NixOS and home-manager options through the dotnix
+;; flake; gopls formats with gofumpt and runs the extra analyses
+(with-eval-after-load 'eglot
+  (let ((flake "(builtins.getFlake \"/home/zbioe/dotnix\")")
+        (host (car (split-string (system-name) "\\."))))
+    (setq-default
+     eglot-workspace-configuration
+     `(:nixd (:nixpkgs (:expr ,(format "import %s.inputs.nixpkgs { }" flake))
+              :formatting (:command ["nixfmt"])
+              :options (:nixos (:expr ,(format "%s.nixosConfigurations.%s.options" flake host))
+                        :home-manager (:expr ,(format "%s.homeConfigurations.%s.options" flake host))))
+       :gopls (:gofumpt t
+               :usePlaceholders t
+               :staticcheck t
+               :analyses (:unusedparams t :unusedwrite t :nilness t :shadow t))))))

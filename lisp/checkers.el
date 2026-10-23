@@ -30,3 +30,8 @@
 (use-package consult-flycheck
   :ensure t
   :after (consult flycheck))
+
+;; golangci-lint for Go, after the server's diagnostics
+(use-package flycheck-golangci-lint
+  :ensure t
+  :hook (go-ts-mode . flycheck-golangci-lint-setup))

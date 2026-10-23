@@ -13,12 +13,11 @@
 ;; git changes in the fringe, kept in sync with magit
 (use-package diff-hl
   :ensure t
-  :demand t
-  :hook ((dired-mode . diff-hl-dired-mode)
+  :hook (((prog-mode text-mode conf-mode) . diff-hl-mode)
+         (dired-mode . diff-hl-dired-mode)
          (magit-pre-refresh . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
-  (global-diff-hl-mode 1)
   (require 'diff-hl-flydiff nil t)
   (when (fboundp 'diff-hl-flydiff-mode)
     (diff-hl-flydiff-mode 1)))
@@ -84,3 +83,18 @@
         (alist-get 'yaml-ts-mode apheleia-mode-alist) 'prettier
         (alist-get 'markdown-mode apheleia-mode-alist) 'prettier)
   (apheleia-global-mode 1))
+
+;; two spaces, as the rest of the code here
+(setq-default python-indent-offset 2
+              sh-basic-offset 2)
+
+;; subprocesses run through a POSIX shell; fish stays for the interactive ones
+(setq shell-file-name (or (executable-find "bash") shell-file-name)
+      explicit-shell-file-name (or (executable-find "fish") shell-file-name))
+
+;; Chromium (Wayland) pastes TEXT, which Emacs reads as latin-1: offer only
+;; the UTF-8 targets so accents survive
+(with-eval-after-load 'select
+  (setq selection-converter-alist
+        (seq-remove (lambda (e) (memq (car e) '(STRING TEXT COMPOUND_TEXT text/plain)))
+                    selection-converter-alist)))

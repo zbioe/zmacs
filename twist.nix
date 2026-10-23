@@ -22,6 +22,7 @@
     ./lisp/tools.el
     ./lisp/spell.el
     ./lisp/help.el
+    ./lisp/debug.el
     ./lisp/keys.el
     ./lisp/activity.el
   ];
