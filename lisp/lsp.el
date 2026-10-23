@@ -26,7 +26,7 @@
   :init
   (setq eglot-autoshutdown t
         eglot-sync-connect nil
-        eglot-events-buffer-size 0)
+        eglot-events-buffer-config '(:size 0 :format full))
   :config
   (dolist (entry
            '((nix-ts-mode . ("nixd"))
@@ -40,6 +40,40 @@
   ;; let apheleia own formatting; eglot only does diagnostics, nav, completion
   (setq eglot-ignored-server-capabilities
         '(:documentFormattingProvider :documentRangeFormattingProvider)))
+
+;; emacs-lsp-booster (from Nix) sits between eglot and each server: it buffers
+;; the output and hands Emacs ready bytecode instead of JSON, so large
+;; responses never freeze the UI. Same wiring as the eglot-booster package.
+(defvar zmacs-lsp-booster
+  (or (getenv "ZMACS_LSP_BOOSTER") (executable-find "emacs-lsp-booster")))
+
+(defun zmacs/lsp-booster-command-p (contact)
+  "Non-nil when CONTACT is a plain (PROGRAM ARGS...) server command."
+  (and (consp contact) (stringp (car contact))
+       (not (integerp (cadr contact))) (not (memq :autoport contact))))
+
+(defun zmacs/lsp-booster-wrap (guess)
+  "Run the server in GUESS (from `eglot--guess-contact') through the booster."
+  (let ((contact (nth 3 guess))
+        (wrap (lambda (c) (if (zmacs/lsp-booster-command-p c)
+                              (append (list zmacs-lsp-booster "--") c)
+                            c))))
+    (setf (nth 3 guess)
+          (if (functionp contact)
+              (lambda (&optional interactive) (funcall wrap (funcall contact interactive)))
+            (funcall wrap contact)))
+    guess))
+
+(defun zmacs/lsp-booster-read (read)
+  "Evaluate the booster's bytecode messages; let READ parse plain JSON."
+  (if (eq (char-after) ?#)
+      (funcall (read (current-buffer)))
+    (funcall read)))
+
+(with-eval-after-load 'eglot
+  (when zmacs-lsp-booster
+    (advice-add 'eglot--guess-contact :filter-return #'zmacs/lsp-booster-wrap)
+    (advice-add 'jsonrpc--json-read :around #'zmacs/lsp-booster-read)))
 
 (use-package consult-eglot
   :ensure t

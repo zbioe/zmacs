@@ -8,6 +8,9 @@
   (require 'use-package)
   (setq use-package-ensure-function #'ignore
         use-package-always-defer t))
+;; modules use evil's macros (evil-define-key) in their :init, some before
+;; evil.el; let the compiler know them from the start whatever the order
+(eval-when-compile (require 'evil nil t))
 
 ;;; Defaults
 

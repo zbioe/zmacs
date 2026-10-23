@@ -112,6 +112,38 @@
         "type": "github"
       }
     },
+    "closql": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792572516,
+        "narHash": "sha256-eMZLmCwVhCGMahpG31Zeu23u6HHF0InhNd7eAq6mfww=",
+        "owner": "magit",
+        "repo": "closql",
+        "rev": "5422039720c55b69a762947d926ebdf4f0781c6c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "magit",
+        "repo": "closql",
+        "type": "github"
+      }
+    },
+    "combobulate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790015316,
+        "narHash": "sha256-xlxFZ3gWi+sJ4AgNDB1d7u9bp0HAjOMj6q3XVO6rtOE=",
+        "owner": "emacsmirror",
+        "repo": "combobulate",
+        "rev": "f7ea37b7ed5a463781a4b7122e4563f1c0fdc90f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacsmirror",
+        "repo": "combobulate",
+        "type": "github"
+      }
+    },
     "compat": {
       "flake": false,
       "locked": {
@@ -621,19 +653,35 @@
         "type": "github"
       }
     },
-    "flyspell-correct": {
+    "forge": {
       "flake": false,
       "locked": {
-        "lastModified": 1782719876,
-        "narHash": "sha256-deE0/HxND7JgoRywp73rJ4NlkmxPpn2eEPkAMK9kJoA=",
-        "owner": "d12frosted",
-        "repo": "flyspell-correct",
-        "rev": "cabf0c9bdba3a08ae3c517302ea6ad55cd638098",
+        "lastModified": 1792600055,
+        "narHash": "sha256-WipjbPN5w1DTPvSy7Uvdv27PU0aGaGDK0JSKvXmLEao=",
+        "owner": "magit",
+        "repo": "forge",
+        "rev": "19083d38c8ca559dd761c8032cb46ca306de96d0",
         "type": "github"
       },
       "original": {
-        "owner": "d12frosted",
-        "repo": "flyspell-correct",
+        "owner": "magit",
+        "repo": "forge",
+        "type": "github"
+      }
+    },
+    "ghub": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792600045,
+        "narHash": "sha256-Iz9nVYxiTZGNhie6OQqs4zhMWZYt8AmBn3YS9NxwUYM=",
+        "owner": "magit",
+        "repo": "ghub",
+        "rev": "d0e41a4d62afb72c5290952c09efdd03a13f2c1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "magit",
+        "repo": "ghub",
         "type": "github"
       }
     },
@@ -1030,6 +1078,8 @@
         "base16-theme": "base16-theme",
         "cape": "cape",
         "casual": "casual",
+        "closql": "closql",
+        "combobulate": "combobulate",
         "compat": "compat",
         "cond-let": "cond-let",
         "consult": "consult",
@@ -1062,7 +1112,8 @@
         "flycheck": "flycheck",
         "flycheck-eglot": "flycheck-eglot",
         "flycheck-golangci-lint": "flycheck-golangci-lint",
-        "flyspell-correct": "flyspell-correct",
+        "forge": "forge",
+        "ghub": "ghub",
         "hcl-mode": "hcl-mode",
         "helpful": "helpful",
         "hl-todo": "hl-todo",
@@ -1091,7 +1142,11 @@
         "shrink-path": "shrink-path",
         "simple-httpd": "simple-httpd",
         "tablist": "tablist",
+        "tabspaces": "tabspaces",
         "terraform-mode": "terraform-mode",
+        "treepy": "treepy",
+        "treesit-fold": "treesit-fold",
+        "undo-fu-session": "undo-fu-session",
         "verb": "verb",
         "vertico": "vertico",
         "vundo": "vundo",
@@ -1100,6 +1155,7 @@
         "wgrep": "wgrep",
         "with-editor": "with-editor",
         "ws-butler": "ws-butler",
+        "yaml": "yaml",
         "yasnippet": "yasnippet",
         "yasnippet-snippets": "yasnippet-snippets"
       }
@@ -1168,6 +1224,22 @@
         "type": "github"
       }
     },
+    "tabspaces": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792073083,
+        "narHash": "sha256-LVQtfXhrDMjLS/GAXIL7M+arVT8ytkb44c3bbMR2GnE=",
+        "ref": "refs/heads/main",
+        "rev": "d45bf0db847ed7de47b85dee61926506e3c1995a",
+        "revCount": 201,
+        "type": "git",
+        "url": "https://codeberg.org/mclear-tools/tabspaces.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/mclear-tools/tabspaces.git"
+      }
+    },
     "terraform-mode": {
       "flake": false,
       "locked": {
@@ -1182,6 +1254,54 @@
         "owner": "hcl-emacs",
         "repo": "terraform-mode",
         "type": "github"
+      }
+    },
+    "treepy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780227894,
+        "narHash": "sha256-rAoAGROlMSqxk9eJpATw194W5VmM3MMLLs3IITbIJxo=",
+        "owner": "volrath",
+        "repo": "treepy.el",
+        "rev": "806c000bd40153d17dfa5709c6d19546d507a416",
+        "type": "github"
+      },
+      "original": {
+        "owner": "volrath",
+        "repo": "treepy.el",
+        "type": "github"
+      }
+    },
+    "treesit-fold": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781857459,
+        "narHash": "sha256-tuaYydP2MQ8RLY2o1UkF4pVVHzsLgClWb1adRchrm3U=",
+        "owner": "emacs-tree-sitter",
+        "repo": "treesit-fold",
+        "rev": "cc1003b730a3167b972cc8400dffe19be7988fc7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-tree-sitter",
+        "repo": "treesit-fold",
+        "type": "github"
+      }
+    },
+    "undo-fu-session": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770623648,
+        "narHash": "sha256-qXrmwhf5/sxqbWUd6DssqxxwsqxiMS2iRqs56Gii/eA=",
+        "ref": "refs/heads/main",
+        "rev": "92d733a5b162a70c572fac17b9f9e872426df547",
+        "revCount": 125,
+        "type": "git",
+        "url": "https://codeberg.org/ideasman42/emacs-undo-fu-session.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/ideasman42/emacs-undo-fu-session.git"
       }
     },
     "verb": {
@@ -1311,6 +1431,22 @@
         "ref": "elpa/ws-butler",
         "type": "git",
         "url": "https://https.git.savannah.gnu.org/git/elpa/nongnu.git"
+      }
+    },
+    "yaml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780648466,
+        "narHash": "sha256-pUmUPrMC+LOzo66ET+mu+cZQ4qBV5bebPxkg+xCFRxs=",
+        "owner": "zkry",
+        "repo": "yaml.el",
+        "rev": "5546f36bde24a9a8c1934e0f6ce205cd41d72537",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zkry",
+        "repo": "yaml.el",
+        "type": "github"
       }
     },
     "yasnippet": {

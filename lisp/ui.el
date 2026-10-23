@@ -66,6 +66,26 @@
   :ensure t
   :defer t)
 
+;; a workspace (tab) per project, each with its own buffer list; the tab bar
+;; only shows once there is a second one
+(use-package tabspaces
+  :ensure t
+  :hook (after-init . tabspaces-mode)
+  :init
+  (setq tab-bar-show 1
+        tabspaces-default-tab "main"
+        tabspaces-remove-to-default t
+        tabspaces-use-filtered-buffers-as-default t
+        tabspaces-session nil)
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global
+      (kbd "<leader><tab><tab>") #'tabspaces-switch-or-create-workspace
+      (kbd "<leader><tab>p") #'tabspaces-open-or-create-project-and-workspace
+      (kbd "<leader><tab>b") #'tabspaces-switch-to-buffer
+      (kbd "<leader><tab>d") #'tabspaces-close-workspace
+      (kbd "<leader><tab>k") #'tabspaces-kill-buffers-close-workspace
+      (kbd "<leader><tab>r") #'tab-bar-rename-tab)))
+
 (use-package doom-modeline
   :ensure t
   :demand t

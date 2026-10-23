@@ -1,7 +1,9 @@
 ;;; early-init.el -*- lexical-binding: t; -*-
 
-;; twist installs the packages, package.el must stay out of the way
-(setq package-enable-at-startup nil)
+;; twist installs the packages, package.el must stay out of the way; with no
+;; archive to fetch from, anything that still reaches for it fails offline
+(setq package-enable-at-startup nil
+      package-archives nil)
 
 ;; no GC and no file-name handlers (tramp, jka-compr) while loading the config;
 ;; settle on a roomy-but-bounded GC threshold once startup is done
@@ -54,4 +56,11 @@
 
 (let ((grammars (getenv "ZMACS_TREESIT_PATH")))
   (when (and grammars (file-directory-p grammars))
-    (setq treesit-extra-load-path (list grammars))))
+    (setq treesit-extra-load-path (list grammars)
+          ;; every grammar comes from Nix; never build one into the home dir
+          treesit-auto-install-grammar 'never)))
+
+;; the fonts dotnix's `theme font' picked, applied before the first frame
+(load (expand-file-name "theme/font/emacs.el"
+                        (or (getenv "XDG_STATE_HOME") "~/.local/state"))
+      t t)

@@ -43,6 +43,18 @@
       repo = "casual";
       type = "github";
     };
+    closql = {
+      flake = false;
+      owner = "magit";
+      repo = "closql";
+      type = "github";
+    };
+    combobulate = {
+      flake = false;
+      owner = "emacsmirror";
+      repo = "combobulate";
+      type = "github";
+    };
     compat = {
       flake = false;
       owner = "emacs-compat";
@@ -234,10 +246,16 @@
       repo = "flycheck-golangci-lint";
       type = "github";
     };
-    flyspell-correct = {
+    forge = {
       flake = false;
-      owner = "d12frosted";
-      repo = "flyspell-correct";
+      owner = "magit";
+      repo = "forge";
+      type = "github";
+    };
+    ghub = {
+      flake = false;
+      owner = "magit";
+      repo = "ghub";
       type = "github";
     };
     hcl-mode = {
@@ -408,11 +426,33 @@
       repo = "tablist";
       type = "github";
     };
+    tabspaces = {
+      flake = false;
+      type = "git";
+      url = "https://codeberg.org/mclear-tools/tabspaces.git";
+    };
     terraform-mode = {
       flake = false;
       owner = "hcl-emacs";
       repo = "terraform-mode";
       type = "github";
+    };
+    treepy = {
+      flake = false;
+      owner = "volrath";
+      repo = "treepy.el";
+      type = "github";
+    };
+    treesit-fold = {
+      flake = false;
+      owner = "emacs-tree-sitter";
+      repo = "treesit-fold";
+      type = "github";
+    };
+    undo-fu-session = {
+      flake = false;
+      type = "git";
+      url = "https://codeberg.org/ideasman42/emacs-undo-fu-session.git";
     };
     verb = {
       flake = false;
@@ -461,6 +501,12 @@
       ref = "elpa/ws-butler";
       type = "git";
       url = "https://https.git.savannah.gnu.org/git/elpa/nongnu.git";
+    };
+    yaml = {
+      flake = false;
+      owner = "zkry";
+      repo = "yaml.el";
+      type = "github";
     };
     yasnippet = {
       flake = false;

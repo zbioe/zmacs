@@ -4,6 +4,13 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
+;; GitHub PRs and issues inside magit; the token is read from ~/.authinfo
+;; (machine api.github.com login USER^forge password TOKEN)
+(use-package forge
+  :ensure t
+  :demand t
+  :after magit)
+
 ;; honour .editorconfig (built into Emacs 30+); dotnix ships one
 (use-package editorconfig
   :demand t
@@ -15,7 +22,6 @@
   :ensure t
   :hook (((prog-mode text-mode conf-mode) . diff-hl-mode)
          (dired-mode . diff-hl-dired-mode)
-         (magit-pre-refresh . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
   (require 'diff-hl-flydiff nil t)
@@ -50,7 +56,17 @@
 
 (use-package vundo
   :ensure t
-  :bind ("C-x u" . vundo))
+  :bind ("C-x u" . vundo)
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>su") #'vundo)))
+
+;; undo history survives closing the file (and restarting Emacs)
+(use-package undo-fu-session
+  :ensure t
+  :hook (after-init . undo-fu-session-global-mode)
+  :init
+  (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'")))
 
 ;; format on save with the same tools nix flake check and dotnix use, so a
 ;; file reads the same whatever edited it; never the language server's own

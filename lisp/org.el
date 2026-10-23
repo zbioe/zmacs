@@ -10,7 +10,7 @@
         org-ellipsis " ▾"
         org-src-fontify-natively t
         org-src-tab-acts-natively t
-        org-edit-src-content-indentation 0
+        org-src-content-indentation 0
         org-log-done 'time
         org-return-follows-link t)
   :config
@@ -43,8 +43,7 @@
   :ensure t
   :commands (org-roam-node-find org-roam-node-insert org-roam-capture org-roam-buffer-toggle)
   :init
-  (setq org-roam-directory "~/org/roam/"
-        org-roam-v2-ack t)
+  (setq org-roam-directory "~/org/roam/")
   (with-eval-after-load 'evil
     (evil-define-key 'normal 'global
       (kbd "<leader>nf") #'org-roam-node-find

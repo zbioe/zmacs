@@ -66,7 +66,7 @@
                                      (string-match-p
                                       "/\\(?:tasks\\|handlers\\|roles\\|playbooks\\|group_vars\\|host_vars\\)/"
                                       buffer-file-name))
-                            (ansible 1)))))
+                            (ansible-mode 1)))))
 
 ;; run ExUnit tests from Elixir buffers (local leader: \ t ...)
 (use-package exunit
@@ -92,3 +92,34 @@
   :init
   (setq plantuml-default-exec-mode 'executable
         org-plantuml-exec-mode 'plantuml))
+
+;; fold by syntax tree: evil's zc/zo/za/zR/zM drive it in tree-sitter buffers
+(use-package treesit-fold
+  :ensure t
+  :hook (after-init . global-treesit-fold-mode)
+  :init
+  (with-eval-after-load 'evil
+    (add-to-list 'evil-fold-list
+                 '((treesit-fold-mode)
+                   :open treesit-fold-open
+                   :close treesit-fold-close
+                   :toggle treesit-fold-toggle
+                   :open-all treesit-fold-open-all
+                   :close-all treesit-fold-close-all
+                   :open-rec treesit-fold-open-recursively))))
+
+;; structured editing (move/drag/clone/splice by node) where it has a grammar
+;; (twist.nix keeps its autoloads from loading it all at startup, so the hook
+;; loads the full package, language definitions included, on first use)
+(defun zmacs/combobulate ()
+  "Load combobulate with its languages and enable it in this buffer."
+  (require 'combobulate)
+  (combobulate-mode))
+
+(use-package combobulate
+  :ensure t
+  :hook ((python-ts-mode js-ts-mode typescript-ts-mode tsx-ts-mode css-ts-mode
+          yaml-ts-mode html-ts-mode json-ts-mode go-ts-mode toml-ts-mode)
+         . zmacs/combobulate)
+  :init
+  (setq combobulate-key-prefix "C-c o"))

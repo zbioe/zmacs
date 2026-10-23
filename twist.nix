@@ -56,6 +56,14 @@
     }
   ];
   inputOverrides = {
+    # combobulate.el marks its own (require ...) forms ;;;###autoload, so its
+    # autoloads file loads all 19 modules at every startup (~0.2s); drop those
+    # cookies, the package still loads in full when combobulate-mode runs
+    combobulate = _: _: {
+      preBuild = ''
+        sed -i '/^;;;###autoload$/{N;s/^;;;###autoload\n\((require \)/\1/}' combobulate.el
+      '';
+    };
     # its -pkg.el has keywords after the requires, which twist can't parse
     base16-theme = _: _: { packageRequires = { }; };
     # savannah.gnu.org is often down; pull tramp from a mirror
