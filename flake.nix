@@ -50,7 +50,24 @@
         pkgs:
         let
           emacsPackage = pkgs.emacs-pgtk;
-          twistConfig = import ./twist.nix { inherit inputs pkgs emacsPackage; };
+          twistConfig = import ./twist.nix {
+            inherit inputs pkgs emacsPackage;
+            # site-start runs before early-init: give the natives' variables
+            # their defaults there, so this Emacs finds them however it was
+            # started (desktop launcher, shell, daemon) with no env to inherit.
+            # DICPATH is read by enchant in C, which elisp's setenv can't reach;
+            # the home module puts the dictionaries in ~/.config/enchant instead
+            extraSiteStartElisp = ''
+              (dolist (var '(${
+                pkgs.lib.concatStrings (
+                  pkgs.lib.mapAttrsToList (k: v: "(${builtins.toJSON k} . ${builtins.toJSON v})") (
+                    removeAttrs env [ "DICPATH" ]
+                  )
+                )
+              }))
+                (unless (getenv (car var)) (setenv (car var) (cdr var))))
+            '';
+          };
           emacs = twist.lib.makeEnv twistConfig;
 
           # natives twist doesn't build well (compiled modules, grammars) come
@@ -63,7 +80,8 @@
             "${emacsPkgs.mu4e}/share/emacs/site-lisp/elpa"
             "${emacsPkgs.jinx}/share/emacs/site-lisp/elpa"
           ];
-          # jinx's enchant reads hunspell dictionaries from DICPATH
+          # jinx's enchant reads hunspell dictionaries from DICPATH or from
+          # ~/.config/enchant/hunspell
           dicts = pkgs.symlinkJoin {
             name = "zmacs-dicts";
             paths = with pkgs.hunspellDicts; [
@@ -129,12 +147,16 @@
 
           # boots the real config in batch (sandboxed: no network, empty home)
           # and runs test/smoke.el against it: bindings, loaded packages, natives,
-          # no warnings/errors during startup, nothing fetched by package.el
+          # no warnings/errors during startup, nothing fetched by package.el.
+          # Deliberately WITHOUT the env (no ZMACS_*, no DICPATH), like Emacs
+          # opened from a desktop launcher under dotnix: the natives must come
+          # from site-start's defaults, the dictionaries from ~/.config/enchant
           smoke = pkgs.runCommandLocal "zmacs-smoke" { } ''
-            ${exportEnv}
+            unset ${builtins.concatStringsSep " " (builtins.attrNames env)}
             export HOME=$TMPDIR/home XDG_CONFIG_HOME=$TMPDIR/home/.config
             export XDG_STATE_HOME=$TMPDIR/home/.local/state XDG_DATA_HOME=$TMPDIR/home/.local/share
-            mkdir -p $XDG_STATE_HOME/theme/current $XDG_CONFIG_HOME
+            mkdir -p $XDG_STATE_HOME/theme/current $XDG_CONFIG_HOME/enchant
+            ln -s ${dicts}/share/hunspell $XDG_CONFIG_HOME/enchant/hunspell
             echo '@define-color window_bg_color #123456;' > $XDG_STATE_HOME/theme/current/gtk4.css
             dir=$TMPDIR/zmacs
             mkdir -p $dir
@@ -149,6 +171,7 @@
           inherit
             emacs
             grammars
+            dicts
             env
             mkInit
             init
@@ -208,7 +231,12 @@
               (lib.mkIf cfg.createInitFile {
                 home.file."${cfg.directory}/init.elc".source = "${z.mkInit cfg.config}/init.elc";
               })
-              { home.sessionVariables = lib.mapAttrs (_: lib.mkDefault) z.env; }
+              {
+                home.sessionVariables = lib.mapAttrs (_: lib.mkDefault) z.env;
+                # where enchant (jinx) finds dictionaries with no DICPATH, so
+                # spell checking works however Emacs was started
+                xdg.configFile."enchant/hunspell".source = "${z.dicts}/share/hunspell";
+              }
               (lib.mkIf cfg.serviceIntegration.enable {
                 systemd.user.services.emacs.Service.Environment = lib.mapAttrsToList (k: v: "${k}=${v}") z.env;
               })

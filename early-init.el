@@ -44,8 +44,9 @@
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
 
-;; natives from Nix (vterm, pdf-tools, tree-sitter grammars): the launcher and
-;; the dotnix module export these; add them before init.el requires anything
+;; natives from Nix (vterm, pdf-tools, jinx, tree-sitter grammars): their
+;; paths default in site-start (flake.nix), so they hold however Emacs was
+;; started; an exported variable overrides. Add them before init.el needs them
 (let ((elpa (getenv "ZMACS_NIX_ELPA")))
   (when elpa
     (dolist (parent (split-string elpa ":" t))
@@ -54,11 +55,11 @@
           (when (file-directory-p dir)
             (add-to-list 'load-path dir)))))))
 
+;; every grammar comes from Nix; never prompt to build one into the home dir
+(setq treesit-auto-install-grammar 'never)
 (let ((grammars (getenv "ZMACS_TREESIT_PATH")))
   (when (and grammars (file-directory-p grammars))
-    (setq treesit-extra-load-path (list grammars)
-          ;; every grammar comes from Nix; never build one into the home dir
-          treesit-auto-install-grammar 'never)))
+    (setq treesit-extra-load-path (list grammars))))
 
 ;; the fonts dotnix's `theme font' picked, applied before the first frame
 (load (expand-file-name "theme/font/emacs.el"

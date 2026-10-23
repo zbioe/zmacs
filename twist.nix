@@ -2,9 +2,11 @@
   pkgs,
   emacsPackage,
   inputs,
+  # elisp appended to site-start.el (flake.nix: defaults for the natives' env)
+  extraSiteStartElisp ? "",
 }:
 {
-  inherit pkgs emacsPackage;
+  inherit pkgs emacsPackage extraSiteStartElisp;
   initFiles = [
     ./init.el
     ./lisp/ui.el
