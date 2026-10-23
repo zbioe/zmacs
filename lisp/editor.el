@@ -18,9 +18,10 @@
   (editorconfig-mode 1))
 
 ;; git changes in the fringe, kept in sync with magit
+(zmacs/define-file-only diff-hl-mode)
 (use-package diff-hl
   :ensure t
-  :hook (((prog-mode text-mode conf-mode) . diff-hl-mode)
+  :hook (((prog-mode text-mode conf-mode) . zmacs/diff-hl-mode-in-files)
          (dired-mode . diff-hl-dired-mode)
          (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
@@ -31,10 +32,11 @@
 ;; dired as a real file manager
 (use-package dirvish
   :ensure t
-  :demand t
-  :config
-  (dirvish-override-dired-mode 1)
-  (setq dirvish-attributes '(nerd-icons file-size vc-state)))
+  :init
+  (setq dirvish-attributes '(nerd-icons file-size vc-state))
+  ;; take over dired when dired itself first loads, before any dired buffer
+  ;; exists, instead of loading dirvish at startup
+  (with-eval-after-load 'dired (dirvish-override-dired-mode 1)))
 
 ;; jump to definition without a language server (grep/tag heuristics)
 (use-package dumb-jump
@@ -114,3 +116,36 @@
   (setq selection-converter-alist
         (seq-remove (lambda (e) (memq (car e) '(STRING TEXT COMPOUND_TEXT text/plain)))
                     selection-converter-alist)))
+
+;; big files never freeze Emacs. A file over `zmacs-large-file-size' opens
+;; straight in so-long-mode, before its real major mode (and the tree-sitter
+;; parse, LSP, spell check... that come with it) ever runs; so-long also still
+;; catches the minified one-line files on its own. Past
+;; `large-file-warning-threshold', vlf offers to open the file in chunks.
+(defvar zmacs-large-file-size (* 2 1024 1024)
+  "Files bigger than this (bytes) skip their major mode for `so-long-mode'.")
+
+(defun zmacs/large-file-mode (set-auto-mode &rest args)
+  "Use `so-long-mode' instead of SET-AUTO-MODE (with ARGS) in big files."
+  (if (and buffer-file-name (> (buffer-size) zmacs-large-file-size))
+      (so-long-mode)
+    (apply set-auto-mode args)))
+(advice-add 'set-auto-mode :around #'zmacs/large-file-mode)
+
+(use-package so-long
+  :hook (after-init . global-so-long-mode)
+  :config
+  ;; what to switch off too when so-long takes over a long-lined buffer
+  (dolist (mode '(jinx-mode diff-hl-mode treesit-fold-mode indent-bars-mode
+                  flycheck-mode yas-minor-mode ws-butler-mode apheleia-mode
+                  eldoc-box-hover-at-point-mode))
+    (add-to-list 'so-long-minor-modes mode)))
+
+(setq large-file-warning-threshold (* 50 1024 1024))
+(use-package vlf
+  :ensure t
+  :init
+  (setq vlf-application 'ask)
+  ;; vlf-setup hooks the "file is large, really open?" question
+  (add-hook 'emacs-startup-hook
+            (lambda () (run-with-idle-timer 2 nil #'require 'vlf-setup nil t))))

@@ -37,6 +37,15 @@
       bidi-inhibit-bpa t)
 (setq-default bidi-display-reordering 'left-to-right
               bidi-paragraph-direction 'left-to-right)
+;; opening a file: one pass over auto-mode-alist instead of two (no case-fold
+;; retry), and only git is probed for version control (not RCS, SVN, Hg, ...)
+(setq auto-mode-case-fold nil
+      vc-handled-backends '(Git)
+      ;; pgtk: don't wait up to 0.1s for a frame event; redraw the modeline &
+      ;; co. less eagerly; never ping hosts for names that look like machines
+      pgtk-wait-for-event-timeout 0.001
+      idle-update-delay 1.0
+      ffap-machine-p-known 'reject)
 
 ;; no flash of the default UI
 (menu-bar-mode -1)

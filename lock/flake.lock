@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "astro-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783733510,
+        "narHash": "sha256-bvJNpJPEfJEmzNzV5F7E0v0sssX+M8tbAXUUJrz/VGo=",
+        "ref": "refs/heads/main",
+        "rev": "fcc299a0b5aade4fd996cbbb5db136348958ebe3",
+        "revCount": 49,
+        "type": "git",
+        "url": "https://git.isincredibly.gay/srxl/astro-ts-mode.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.isincredibly.gay/srxl/astro-ts-mode.git"
+      }
+    },
     "avy": {
       "flake": false,
       "locked": {
@@ -125,6 +141,22 @@
       "original": {
         "owner": "magit",
         "repo": "closql",
+        "type": "github"
+      }
+    },
+    "code-cells": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1749393555,
+        "narHash": "sha256-QSjWlaxOtKZbroKXt4vOj5Q53u6NzvvTE7ZmmTrDxTE=",
+        "owner": "astoff",
+        "repo": "code-cells.el",
+        "rev": "b99013b81712edbb94fdb57cce083d32ad06fbb8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astoff",
+        "repo": "code-cells.el",
         "type": "github"
       }
     },
@@ -269,6 +301,22 @@
         "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar"
       }
     },
+    "cython-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669813041,
+        "narHash": "sha256-YDEWQTiYDAt3sHqkh0m99MK6tNHbLHzr0TDcmuiicQ4=",
+        "owner": "cython",
+        "repo": "emacs-cython-mode",
+        "rev": "3e4790559d3168fe992cf2aa62f01423038cedb5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cython",
+        "repo": "emacs-cython-mode",
+        "type": "github"
+      }
+    },
     "dape": {
       "flake": false,
       "locked": {
@@ -394,6 +442,22 @@
       "original": {
         "owner": "doomemacs",
         "repo": "themes",
+        "type": "github"
+      }
+    },
+    "dotenv-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1572211765,
+        "narHash": "sha256-AzevYun0SZaYKsQOa+242AKGV0qF9W7XR2zIqvJnQXs=",
+        "owner": "preetpalS",
+        "repo": "emacs-dotenv-mode",
+        "rev": "e3701bf739bde44f6484eb7753deadaf691b73fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "preetpalS",
+        "repo": "emacs-dotenv-mode",
         "type": "github"
       }
     },
@@ -605,6 +669,22 @@
         "type": "github"
       }
     },
+    "fish-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706530431,
+        "narHash": "sha256-hkBKYCP3plY4zdBPqx0Ucfu3D+cEmBtgWHSXT+ckTtg=",
+        "owner": "wwwjfy",
+        "repo": "emacs-fish",
+        "rev": "2526b1803b58cf145bc70ff6ce2adb3f6c246f89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wwwjfy",
+        "repo": "emacs-fish",
+        "type": "github"
+      }
+    },
     "flycheck": {
       "flake": false,
       "locked": {
@@ -685,6 +765,22 @@
         "type": "github"
       }
     },
+    "git-modes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790869603,
+        "narHash": "sha256-hIOksn6XFDpWSPGBJWErhn1NQFTJby2HCOSmGDDqn0E=",
+        "owner": "magit",
+        "repo": "git-modes",
+        "rev": "f8a453725586c8225e47afca4c8cbc2c5585bf33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "magit",
+        "repo": "git-modes",
+        "type": "github"
+      }
+    },
     "hcl-mode": {
       "flake": false,
       "locked": {
@@ -762,6 +858,22 @@
       "original": {
         "owner": "purcell",
         "repo": "inheritenv",
+        "type": "github"
+      }
+    },
+    "just-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784214855,
+        "narHash": "sha256-Fzzcd4lHNX4HXpFN7ezO8ISMY2LgMaTpRaVXYBD9j2o=",
+        "owner": "leon-barrett",
+        "repo": "just-ts-mode.el",
+        "rev": "6b4b23fcc6f0f0d0903e84c51771d43c06a00771",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leon-barrett",
+        "repo": "just-ts-mode.el",
         "type": "github"
       }
     },
@@ -877,6 +989,22 @@
         "type": "github"
       }
     },
+    "meson-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717260452,
+        "narHash": "sha256-E0Wm2yCggc6twPUGxG+ojAbNo5piBNlsRMZssHAuv1Y=",
+        "owner": "wentasah",
+        "repo": "meson-mode",
+        "rev": "0449c649daaa9322e1c439c1540d8c290501d455",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wentasah",
+        "repo": "meson-mode",
+        "type": "github"
+      }
+    },
     "nerd-icons": {
       "flake": false,
       "locked": {
@@ -922,6 +1050,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nix-ts-mode",
+        "type": "github"
+      }
+    },
+    "nushell-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783215703,
+        "narHash": "sha256-QgBHTUsNOiGM9NojEPjBhORDttL8kGwgdvsqRYOVqa4=",
+        "owner": "herbertjones",
+        "repo": "nushell-ts-mode",
+        "rev": "49915cd99d62b7e743bd8cf9023a5819479d166f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "herbertjones",
+        "repo": "nushell-ts-mode",
         "type": "github"
       }
     },
@@ -1037,6 +1181,22 @@
         "type": "github"
       }
     },
+    "po-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771322167,
+        "narHash": "sha256-DNKyPNof8NS5aQtYn6DmHQSbDAyvAXNiWPCrbSicwyQ=",
+        "ref": "refs/heads/master",
+        "rev": "27538dd0938d5a941833d503afc9dba13dcf16fe",
+        "revCount": 624,
+        "type": "git",
+        "url": "https://git.savannah.gnu.org/git/gettext/po-mode.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.savannah.gnu.org/git/gettext/po-mode.git"
+      }
+    },
     "popper": {
       "flake": false,
       "locked": {
@@ -1050,6 +1210,54 @@
       "original": {
         "owner": "karthink",
         "repo": "popper",
+        "type": "github"
+      }
+    },
+    "powershell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763821818,
+        "narHash": "sha256-F7QIIdHlAexNG7hg/1IdqnOjGkOMGW8NMpKnigGkMVA=",
+        "owner": "jschaf",
+        "repo": "powershell.el",
+        "rev": "ae60e11c96cc1767f05ce0cab6a917240ce2e37a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jschaf",
+        "repo": "powershell.el",
+        "type": "github"
+      }
+    },
+    "prisma-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761314192,
+        "narHash": "sha256-/9UzUOr71+sf7Jn/ywEOHaKV1uJmlRvch1CHsE9msKY=",
+        "owner": "nverno",
+        "repo": "prisma-ts-mode",
+        "rev": "c63117764dc9e177aea7ddbef23c47feba1523d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nverno",
+        "repo": "prisma-ts-mode",
+        "type": "github"
+      }
+    },
+    "protobuf-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690566474,
+        "narHash": "sha256-4YLBSFMgw7VqKVgYbeYmnNAJMEXrIowz0GnRrqp1PUM=",
+        "owner": "emacsattic",
+        "repo": "protobuf-ts-mode",
+        "rev": "65152f5341ea4b3417390b3e60b195975161b8bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacsattic",
+        "repo": "protobuf-ts-mode",
         "type": "github"
       }
     },
@@ -1074,11 +1282,13 @@
         "aio": "aio",
         "ansible": "ansible",
         "apheleia": "apheleia",
+        "astro-ts-mode": "astro-ts-mode",
         "avy": "avy",
         "base16-theme": "base16-theme",
         "cape": "cape",
         "casual": "casual",
         "closql": "closql",
+        "code-cells": "code-cells",
         "combobulate": "combobulate",
         "compat": "compat",
         "cond-let": "cond-let",
@@ -1088,6 +1298,7 @@
         "consult-flycheck": "consult-flycheck",
         "corfu": "corfu",
         "csv-mode": "csv-mode",
+        "cython-mode": "cython-mode",
         "dape": "dape",
         "dash": "dash",
         "deflate": "deflate",
@@ -1096,6 +1307,7 @@
         "docker": "docker",
         "doom-modeline": "doom-modeline",
         "doom-themes": "doom-themes",
+        "dotenv-mode": "dotenv-mode",
         "dumb-jump": "dumb-jump",
         "eldoc-box": "eldoc-box",
         "elisp-refs": "elisp-refs",
@@ -1109,16 +1321,19 @@
         "evil-surround": "evil-surround",
         "exunit": "exunit",
         "f": "f",
+        "fish-mode": "fish-mode",
         "flycheck": "flycheck",
         "flycheck-eglot": "flycheck-eglot",
         "flycheck-golangci-lint": "flycheck-golangci-lint",
         "forge": "forge",
         "ghub": "ghub",
+        "git-modes": "git-modes",
         "hcl-mode": "hcl-mode",
         "helpful": "helpful",
         "hl-todo": "hl-todo",
         "indent-bars": "indent-bars",
         "inheritenv": "inheritenv",
+        "just-ts-mode": "just-ts-mode",
         "langtool": "langtool",
         "llama": "llama",
         "magit": "magit",
@@ -1126,9 +1341,11 @@
         "marginalia": "marginalia",
         "markdown-mode": "markdown-mode",
         "mermaid-mode": "mermaid-mode",
+        "meson-mode": "meson-mode",
         "nerd-icons": "nerd-icons",
         "nerd-icons-completion": "nerd-icons-completion",
         "nix-ts-mode": "nix-ts-mode",
+        "nushell-ts-mode": "nushell-ts-mode",
         "orderless": "orderless",
         "org-appear": "org-appear",
         "org-modern": "org-modern",
@@ -1136,7 +1353,11 @@
         "org-roam-ui": "org-roam-ui",
         "osm": "osm",
         "plantuml-mode": "plantuml-mode",
+        "po-mode": "po-mode",
         "popper": "popper",
+        "powershell": "powershell",
+        "prisma-ts-mode": "prisma-ts-mode",
+        "protobuf-ts-mode": "protobuf-ts-mode",
         "rainbow-delimiters": "rainbow-delimiters",
         "s": "s",
         "shrink-path": "shrink-path",
@@ -1146,9 +1367,11 @@
         "terraform-mode": "terraform-mode",
         "treepy": "treepy",
         "treesit-fold": "treesit-fold",
+        "typst-ts-mode": "typst-ts-mode",
         "undo-fu-session": "undo-fu-session",
         "verb": "verb",
         "vertico": "vertico",
+        "vlf": "vlf",
         "vundo": "vundo",
         "web-mode": "web-mode",
         "websocket": "websocket",
@@ -1288,6 +1511,22 @@
         "type": "github"
       }
     },
+    "typst-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791290078,
+        "narHash": "sha256-RFWr/OOgugcRm6PqPt+eWg/Rnm5fX7k4TjiaB+6H7XI=",
+        "ref": "refs/heads/develop",
+        "rev": "ee17b331ebfa8d8b7c2f54a1c39ab3d76e134706",
+        "revCount": 320,
+        "type": "git",
+        "url": "https://codeberg.org/meow_king/typst-ts-mode"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/meow_king/typst-ts-mode"
+      }
+    },
     "undo-fu-session": {
       "flake": false,
       "locked": {
@@ -1334,6 +1573,19 @@
         "owner": "minad",
         "repo": "vertico",
         "type": "github"
+      }
+    },
+    "vlf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1597870992,
+        "narHash": "sha256-uKsOBodY7pVMcwEOv59wIhor0PVVTKNk+D2Wvhhdgjg=",
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar"
       }
     },
     "vundo": {

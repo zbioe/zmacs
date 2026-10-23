@@ -36,6 +36,31 @@
       (when (facep face)
         (set-face-attribute face nil :box nil)))))
 
+;; never tofu, whatever font dotnix's `theme font' picks: the chosen font is
+;; always tried first (every entry below is *appended*), and only a glyph it
+;; lacks falls back down this chain. Nerd Font icons (eza/starship in vterm,
+;; nerd-icons) sit in the Private Use Areas, which Emacs doesn't search on its
+;; own, so those ranges get the symbols font explicitly as well.
+(defvar zmacs-fallback-fonts
+  '("Symbols Nerd Font Mono" "Noto Color Emoji" "Noto Sans Symbols 2"
+    "Noto Sans Symbols" "Noto Sans Math" "Noto Sans CJK SC" "DejaVu Sans")
+  "Fonts tried, in order, for characters the current font doesn't have.")
+
+(defun zmacs/fallback-fontset (&rest _)
+  "Append `zmacs-fallback-fonts' to the default fontset, once per session."
+  (when (display-graphic-p)
+    (dolist (family zmacs-fallback-fonts)
+      (when (find-font (font-spec :family family))
+        (set-fontset-font t nil family nil 'append)))
+    (when (find-font (font-spec :family "Symbols Nerd Font Mono"))
+      (dolist (range '((#xe000 . #xf8ff) (#xf0000 . #xfffff)))
+        (set-fontset-font t range "Symbols Nerd Font Mono" nil 'append)))
+    (remove-hook 'server-after-make-frame-hook #'zmacs/fallback-fontset)
+    t))
+;; a daemon has no graphic frame at startup: do it with the first one
+(unless (zmacs/fallback-fontset)
+  (add-hook 'server-after-make-frame-hook #'zmacs/fallback-fontset))
+
 ;; colours follow dotnix's `theme' state when present, else a built-in fallback
 (use-package doom-themes
   :ensure t
@@ -68,9 +93,13 @@
 
 ;; a workspace (tab) per project, each with its own buffer list; the tab bar
 ;; only shows once there is a second one
+(defun zmacs/tabspaces-start ()
+  "Turn on tabspaces once Emacs is idle (it pulls in dired, vc and project)."
+  (run-with-idle-timer 0.5 nil #'tabspaces-mode 1))
+
 (use-package tabspaces
   :ensure t
-  :hook (after-init . tabspaces-mode)
+  :hook (emacs-startup . zmacs/tabspaces-start)
   :init
   (setq tab-bar-show 1
         tabspaces-default-tab "main"
@@ -111,9 +140,10 @@
   :hook (prog-mode . hl-todo-mode))
 
 ;; tree-sitter-aware indentation guides
+(zmacs/define-file-only indent-bars-mode)
 (use-package indent-bars
   :ensure t
-  :hook (prog-mode . indent-bars-mode)
+  :hook (prog-mode . zmacs/indent-bars-mode-in-files)
   :init
   (setq indent-bars-treesit-support t
         indent-bars-no-descend-string t

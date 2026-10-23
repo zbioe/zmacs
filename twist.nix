@@ -58,6 +58,21 @@
     }
   ];
   inputOverrides = {
+    # its autoloads run (treesit-ready-p 'astro) from site-start, before
+    # treesit is loaded: void-function, and startup dies. lang.el maps .astro
+    astro-ts-mode = _: _: {
+      preBuild = ''
+        sed -i '/^;;;###autoload$/{N;s/^;;;###autoload\n\((if (treesit-ready-p\)/\1/}' astro-ts-mode.el
+      '';
+    };
+    # 2449 snippet files, read one by one (each asking editorconfig for its
+    # coding system) the first time yasnippet loads a mode: ~0.2s. Compile them
+    # here into one .yas-compiled-snippets.el per mode, which yasnippet prefers
+    yasnippet-snippets = _: _: {
+      preBuild = ''
+        HOME=$TMPDIR emacs --batch -l yasnippet --eval '(yas-compile-directory "snippets")'
+      '';
+    };
     # combobulate.el marks its own (require ...) forms ;;;###autoload, so its
     # autoloads file loads all 19 modules at every startup (~0.2s); drop those
     # cookies, the package still loads in full when combobulate-mode runs

@@ -2,9 +2,10 @@
 
 ;; flycheck for the non-LSP linters (shellcheck, hadolint, statix, ...);
 ;; eglot feeds its diagnostics in through flycheck-eglot
+(zmacs/define-file-only flycheck-mode)
 (use-package flycheck
   :ensure t
-  :hook (prog-mode . flycheck-mode)
+  :hook (prog-mode . zmacs/flycheck-mode-in-files)
   :init
   (setq flycheck-emacs-lisp-load-path 'inherit
         flycheck-check-syntax-automatically '(save mode-enabled))

@@ -57,10 +57,11 @@
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
-;; loaded with the first buffer that can use it, not at startup
+;; loaded with the first file that can use it, not at startup (nor by *scratch*)
+(zmacs/define-file-only yas-minor-mode)
 (use-package yasnippet
   :ensure t
-  :hook ((prog-mode text-mode conf-mode) . yas-minor-mode)
+  :hook ((prog-mode text-mode conf-mode) . zmacs/yas-minor-mode-in-files)
   :config
   (yas-reload-all))
 

@@ -12,6 +12,16 @@
 ;; evil.el; let the compiler know them from the start whatever the order
 (eval-when-compile (require 'evil nil t))
 
+;; defines `zmacs/MODE-in-files', a hook function turning MODE on only in
+;; buffers visiting a file: *scratch* (a prog-mode) and other non-file buffers
+;; then skip file-only helpers (spell check, git gutter, linters, indent guides)
+;; and the libraries those would pull in at startup
+(defmacro zmacs/define-file-only (mode)
+  (let ((fn (intern (format "zmacs/%s-in-files" mode))))
+    `(defun ,fn ()
+       ,(format "Turn on `%s' when the buffer visits a file." mode)
+       (when buffer-file-name (,mode 1)))))
+
 ;;; Defaults
 
 (setq-default indent-tabs-mode nil

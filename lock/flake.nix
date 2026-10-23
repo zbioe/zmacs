@@ -19,6 +19,11 @@
       repo = "apheleia";
       type = "github";
     };
+    astro-ts-mode = {
+      flake = false;
+      type = "git";
+      url = "https://git.isincredibly.gay/srxl/astro-ts-mode.git";
+    };
     avy = {
       flake = false;
       owner = "abo-abo";
@@ -47,6 +52,12 @@
       flake = false;
       owner = "magit";
       repo = "closql";
+      type = "github";
+    };
+    code-cells = {
+      flake = false;
+      owner = "astoff";
+      repo = "code-cells.el";
       type = "github";
     };
     combobulate = {
@@ -102,6 +113,12 @@
       type = "tarball";
       url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar";
     };
+    cython-mode = {
+      flake = false;
+      owner = "cython";
+      repo = "emacs-cython-mode";
+      type = "github";
+    };
     dape = {
       flake = false;
       owner = "svaante";
@@ -148,6 +165,12 @@
       flake = false;
       owner = "doomemacs";
       repo = "themes";
+      type = "github";
+    };
+    dotenv-mode = {
+      flake = false;
+      owner = "preetpalS";
+      repo = "emacs-dotenv-mode";
       type = "github";
     };
     dumb-jump = {
@@ -228,6 +251,12 @@
       repo = "f.el";
       type = "github";
     };
+    fish-mode = {
+      flake = false;
+      owner = "wwwjfy";
+      repo = "emacs-fish";
+      type = "github";
+    };
     flycheck = {
       flake = false;
       owner = "flycheck";
@@ -258,6 +287,12 @@
       repo = "ghub";
       type = "github";
     };
+    git-modes = {
+      flake = false;
+      owner = "magit";
+      repo = "git-modes";
+      type = "github";
+    };
     hcl-mode = {
       flake = false;
       owner = "hcl-emacs";
@@ -286,6 +321,12 @@
       flake = false;
       owner = "purcell";
       repo = "inheritenv";
+      type = "github";
+    };
+    just-ts-mode = {
+      flake = false;
+      owner = "leon-barrett";
+      repo = "just-ts-mode.el";
       type = "github";
     };
     langtool = {
@@ -330,6 +371,12 @@
       repo = "mermaid-mode";
       type = "github";
     };
+    meson-mode = {
+      flake = false;
+      owner = "wentasah";
+      repo = "meson-mode";
+      type = "github";
+    };
     nerd-icons = {
       flake = false;
       owner = "rainstormstudio";
@@ -346,6 +393,12 @@
       flake = false;
       owner = "nix-community";
       repo = "nix-ts-mode";
+      type = "github";
+    };
+    nushell-ts-mode = {
+      flake = false;
+      owner = "herbertjones";
+      repo = "nushell-ts-mode";
       type = "github";
     };
     orderless = {
@@ -390,10 +443,33 @@
       repo = "plantuml-mode";
       type = "github";
     };
+    po-mode = {
+      flake = false;
+      type = "git";
+      url = "https://git.savannah.gnu.org/git/gettext/po-mode.git";
+    };
     popper = {
       flake = false;
       owner = "karthink";
       repo = "popper";
+      type = "github";
+    };
+    powershell = {
+      flake = false;
+      owner = "jschaf";
+      repo = "powershell.el";
+      type = "github";
+    };
+    prisma-ts-mode = {
+      flake = false;
+      owner = "nverno";
+      repo = "prisma-ts-mode";
+      type = "github";
+    };
+    protobuf-ts-mode = {
+      flake = false;
+      owner = "emacsattic";
+      repo = "protobuf-ts-mode";
       type = "github";
     };
     rainbow-delimiters = {
@@ -449,6 +525,11 @@
       repo = "treesit-fold";
       type = "github";
     };
+    typst-ts-mode = {
+      flake = false;
+      type = "git";
+      url = "https://codeberg.org/meow_king/typst-ts-mode";
+    };
     undo-fu-session = {
       flake = false;
       type = "git";
@@ -465,6 +546,11 @@
       owner = "minad";
       repo = "vertico";
       type = "github";
+    };
+    vlf = {
+      flake = false;
+      type = "tarball";
+      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar";
     };
     vundo = {
       flake = false;

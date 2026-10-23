@@ -97,6 +97,8 @@
             ZMACS_TREESIT_PATH = "${grammars}/lib";
             ZMACS_MU_BINARY = "${pkgs.mu}/bin/mu";
             ZMACS_LSP_BOOSTER = "${pkgs.emacs-lsp-booster}/bin/emacs-lsp-booster";
+            # code-cells converts .ipynb to and from "# %%" python with it
+            ZMACS_JUPYTEXT = "${pkgs.python3Packages.jupytext}/bin/jupytext";
             DICPATH = "${dicts}/share/hunspell";
           };
 
@@ -236,6 +238,9 @@
                 # where enchant (jinx) finds dictionaries with no DICPATH, so
                 # spell checking works however Emacs was started
                 xdg.configFile."enchant/hunspell".source = "${z.dicts}/share/hunspell";
+                # the font zmacs maps Nerd Font icons to (ui.el), never tofu
+                home.packages = [ pkgs.nerd-fonts.symbols-only ];
+                fonts.fontconfig.enable = lib.mkDefault true;
               }
               (lib.mkIf cfg.serviceIntegration.enable {
                 systemd.user.services.emacs.Service.Environment = lib.mapAttrsToList (k: v: "${k}=${v}") z.env;

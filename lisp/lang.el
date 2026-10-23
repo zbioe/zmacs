@@ -19,10 +19,20 @@
            ("\\.ts\\'" . typescript-ts-mode)
            ("\\.tsx\\'" . tsx-ts-mode)
            ("\\.jsx?\\'" . js-ts-mode)
-           ("\\(?:Dockerfile\\|\\.dockerfile\\)\\'" . dockerfile-ts-mode)
+           ("\\.[cm]js\\'" . js-ts-mode)
+           ("\\(?:Dockerfile\\(?:[._-][^/]*\\)?\\|\\.dockerfile\\)\\'" . dockerfile-ts-mode)
            ("\\.[ch]\\'" . c-ts-mode)
            ("\\.cc\\'" . c++-ts-mode)
-           ("\\.cpp\\'" . c++-ts-mode)))
+           ("\\.[ch]pp\\'" . c++-ts-mode)
+           ;; the formats found across ~/dev with no mode of their own
+           ("\\.bats\\'" . bash-ts-mode)
+           ("\\(?:flake\\|composer\\)\\.lock\\'" . json-ts-mode)
+           ("\\.\\(?:tfstate\\(?:\\.backup\\)?\\|webmanifest\\|jsonc\\)\\'" . json-ts-mode)
+           ("\\(?:uv\\|Cargo\\|poetry\\|Pipfile\\)\\.lock\\'" . toml-ts-mode)
+           ("\\.pyf\\'" . f90-mode)
+           ("/\\.tool[-_]versions\\'" . conf-space-mode)
+           ("/\\(?:LICEN[CS]E\\|COPYING\\|NOTICE\\|AUTHORS\\|CONTRIBUTORS\\)\\(?:\\.\\(?:txt\\|mit\\|apache2?\\|bsd\\)\\)?\\'" . text-mode)
+           ("/\\(?:CNAME\\|\\.nojekyll\\|\\.gitkeep\\|\\.keep\\)\\'" . text-mode)))
   (add-to-list 'auto-mode-alist entry))
 
 ;; and for files that still open in a classic mode, prefer the ts version
@@ -92,6 +102,84 @@
   :init
   (setq plantuml-default-exec-mode 'executable
         org-plantuml-exec-mode 'plantuml))
+
+;; more languages and formats found across ~/dev; the tree-sitter ones use the
+;; Nix grammars (astro needs astro + tsx + css, all in with-all-grammars)
+(use-package astro-ts-mode
+  :ensure t
+  :mode "\\.astro\\'")
+
+(use-package protobuf-ts-mode
+  :ensure t
+  :mode "\\.proto\\'")
+
+(use-package prisma-ts-mode
+  :ensure t
+  :mode "\\.prisma\\'")
+
+(use-package typst-ts-mode
+  :ensure t
+  :mode "\\.typ\\'")
+
+(use-package just-ts-mode
+  :ensure t
+  :mode ("/[Jj]ustfile\\'" "\\.just\\'"))
+
+(use-package nushell-ts-mode
+  :ensure t
+  :mode "\\.nu\\'")
+
+(use-package fish-mode
+  :ensure t
+  :mode "\\.fish\\'")
+
+(use-package powershell
+  :ensure t
+  :mode ("\\.ps[dm]?1\\'" . powershell-mode))
+
+(use-package cython-mode
+  :ensure t
+  :mode "\\.\\(?:pyx\\|pxd\\|pxi\\)\\'")
+
+(use-package meson-mode
+  :ensure t
+  :mode "/meson\\(?:_options\\)?\\.build\\'")
+
+(use-package po-mode
+  :ensure t
+  :mode "\\.pot?\\'")
+
+;; .env and its variants (.env.example, .env-local, prod.env, .env.bak.*)
+(use-package dotenv-mode
+  :ensure t
+  :mode "\\.env\\(?:[.-][^/]*\\)?\\'")
+
+;; .gitignore/.gitattributes/.gitconfig, and every other *ignore file
+(use-package git-modes
+  :ensure t
+  :mode (("/\\.[a-z]*ignore\\'" . gitignore-mode)
+         ("/\\.gitattributes\\'" . gitattributes-mode)
+         ("/\\.gitconfig\\'" . gitconfig-mode)))
+
+;; Jupyter notebooks open as plain Python with "# %%" cells: jupytext (from
+;; Nix, ZMACS_JUPYTEXT) converts on read and back to .ipynb on save; evaluate a
+;; cell with C-c C-c, move between them with ]c / [c
+(use-package code-cells
+  :ensure t
+  :mode ("\\.ipynb\\'" . code-cells-convert-ipynb)
+  :hook (python-ts-mode . code-cells-mode-maybe)
+  :init
+  (let ((jupytext (or (getenv "ZMACS_JUPYTEXT") "jupytext")))
+    (setq code-cells-convert-ipynb-style
+          `((,jupytext "--to" "ipynb")
+            (,jupytext "--to" "auto:percent")
+            python-ts-mode)))
+  :config
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal code-cells-mode-map
+      (kbd "]c") #'code-cells-forward-cell
+      (kbd "[c") #'code-cells-backward-cell
+      (kbd "C-c C-c") #'code-cells-eval)))
 
 ;; fold by syntax tree: evil's zc/zo/za/zR/zM drive it in tree-sitter buffers
 (use-package treesit-fold
