@@ -100,20 +100,25 @@
 (use-package tabspaces
   :ensure t
   :hook (emacs-startup . zmacs/tabspaces-start)
+  ;; not autoloaded: SPC TAB b/d/k were dead until the idle start
+  :commands (tabspaces-switch-to-buffer tabspaces-close-workspace
+             tabspaces-kill-buffers-close-workspace)
   :init
   (setq tab-bar-show 1
         tabspaces-default-tab "main"
         tabspaces-remove-to-default t
         tabspaces-use-filtered-buffers-as-default t
         tabspaces-session nil)
+  ;; TAB, not <tab>: a terminal frame only sends TAB, and a GUI's <tab> falls
+  ;; back to it
   (with-eval-after-load 'evil
     (evil-define-key 'normal 'global
-      (kbd "<leader><tab><tab>") #'tabspaces-switch-or-create-workspace
-      (kbd "<leader><tab>p") #'tabspaces-open-or-create-project-and-workspace
-      (kbd "<leader><tab>b") #'tabspaces-switch-to-buffer
-      (kbd "<leader><tab>d") #'tabspaces-close-workspace
-      (kbd "<leader><tab>k") #'tabspaces-kill-buffers-close-workspace
-      (kbd "<leader><tab>r") #'tab-bar-rename-tab)))
+      (kbd "<leader>TAB TAB") #'tabspaces-switch-or-create-workspace
+      (kbd "<leader>TAB p") #'tabspaces-open-or-create-project-and-workspace
+      (kbd "<leader>TAB b") #'tabspaces-switch-to-buffer
+      (kbd "<leader>TAB d") #'tabspaces-close-workspace
+      (kbd "<leader>TAB k") #'tabspaces-kill-buffers-close-workspace
+      (kbd "<leader>TAB r") #'tab-bar-rename-tab)))
 
 (use-package doom-modeline
   :ensure t

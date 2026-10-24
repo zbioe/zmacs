@@ -1,5 +1,16 @@
 ;;; evil.el -*- lexical-binding: t; -*-
 
+;; SPC as the leader in *every* buffer. `evil-set-leader' binds it in the
+;; global state maps, and the modes' own maps win over those: dired, help,
+;; magit, ... bind SPC themselves (next line, scroll), so the leader was dead
+;; there. An intercept map outranks every other evil map, like Doom's.
+(defvar zmacs-leader-mode-map (make-sparse-keymap))
+(define-minor-mode zmacs-leader-mode
+  "SPC opens the leader in every buffer's normal, visual and motion state."
+  :global t
+  :group 'evil
+  :keymap zmacs-leader-mode-map)
+
 (use-package evil
   :ensure t
   :demand t
@@ -14,22 +25,45 @@
   :config
   (evil-mode 1)
   (evil-set-leader 'normal (kbd "SPC"))
+  ;; every leader binding lives under [leader] in the normal state map
+  ;; (`evil-define-key' 'normal 'global); visual and motion reach it too
+  (dolist (state '(normal visual motion))
+    (evil-define-key state zmacs-leader-mode-map (kbd "SPC")
+      `(menu-item "" nil :filter
+                  ,(lambda (_) (lookup-key evil-normal-state-map [leader]))))
+    (evil-make-intercept-map zmacs-leader-mode-map state t))
   (evil-set-leader 'normal (kbd "\\") t) ; local leader
+  (zmacs-leader-mode 1)
   (evil-define-key 'normal 'global
+    (kbd "<leader>:") #'execute-extended-command
+    (kbd "<leader>u") #'universal-argument ; C-u scrolls
+    (kbd "<leader>,") #'consult-buffer
+    (kbd "<leader>`") #'evil-switch-to-windows-last-buffer
     ;; files / buffers
     (kbd "<leader>SPC") #'project-find-file
     (kbd "<leader>.") #'find-file
     (kbd "<leader>ff") #'find-file
     (kbd "<leader>fr") #'consult-recent-file
     (kbd "<leader>fs") #'save-buffer
+    (kbd "<leader>fR") #'rename-visited-file
+    (kbd "<leader>fD") #'zmacs/delete-this-file
+    (kbd "<leader>fy") #'zmacs/copy-file-path
     (kbd "<leader>bb") #'consult-buffer
     (kbd "<leader>bk") #'kill-current-buffer
     (kbd "<leader>bi") #'ibuffer
+    (kbd "<leader>bn") #'next-buffer
+    (kbd "<leader>bp") #'previous-buffer
+    (kbd "<leader>br") #'revert-buffer-quick
+    (kbd "<leader>bs") #'scratch-buffer
     ;; search
     (kbd "<leader>/") #'consult-ripgrep
     (kbd "<leader>ss") #'consult-line
+    (kbd "<leader>sb") #'consult-line
+    (kbd "<leader>sf") #'consult-fd
     (kbd "<leader>si") #'consult-imenu
     (kbd "<leader>sp") #'consult-ripgrep
+    (kbd "<leader>sd") #'zmacs/ripgrep-here
+    (kbd "<leader>sD") #'zmacs/ripgrep-in
     ;; project
     (kbd "<leader>pp") #'project-switch-project
     (kbd "<leader>pf") #'project-find-file
@@ -42,15 +76,20 @@
     (kbd "<leader>ca") #'eglot-code-actions
     (kbd "<leader>cr") #'eglot-rename
     (kbd "<leader>cf") #'apheleia-format-buffer
-    (kbd "<leader>cd") #'flymake-show-buffer-diagnostics
-    (kbd "<leader>cD") #'consult-flymake
+    (kbd "<leader>cd") #'xref-find-definitions
+    (kbd "<leader>cD") #'xref-find-references
+    ;; diagnostics come from flycheck (eglot's too, via flycheck-eglot)
+    (kbd "<leader>cx") #'consult-flycheck
+    (kbd "<leader>cX") #'flycheck-list-errors
     ;; open
-    (kbd "<leader>ot") #'vterm
     (kbd "<leader>op") #'dired-jump
+    (kbd "<leader>o-") #'dired-jump
     ;; help
     (kbd "<leader>hf") #'helpful-callable
     (kbd "<leader>hv") #'helpful-variable
     (kbd "<leader>hk") #'helpful-key
+    (kbd "<leader>hm") #'describe-mode
+    (kbd "<leader>hb") #'embark-bindings
     ;; windows
     (kbd "<leader>wv") #'evil-window-vsplit
     (kbd "<leader>ws") #'evil-window-split

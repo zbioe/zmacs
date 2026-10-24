@@ -200,9 +200,13 @@
 ;; (twist.nix keeps its autoloads from loading it all at startup, so the hook
 ;; loads the full package, language definitions included, on first use)
 (defun zmacs/combobulate ()
-  "Load combobulate with its languages and enable it in this buffer."
+  "Load combobulate with its languages and enable it in this buffer.
+Only for modes it knows itself: a derived mode runs its parent's hook too
+\(astro-ts-mode is an html-ts-mode), and on a language combobulate lacks
+`combobulate-mode' errors out of the file's mode setup."
   (require 'combobulate)
-  (combobulate-mode))
+  (when (combobulate-get-registered-language major-mode)
+    (combobulate-mode)))
 
 (use-package combobulate
   :ensure t

@@ -13,7 +13,6 @@
     (when mu (setq mu4e-mu-binary mu)))
   (setq mu4e-get-mail-command "mbsync -a"
         mu4e-update-interval (* 10 60)
-        mu4e-maildir "~/Mail"
         mu4e-change-filenames-when-moving t
         mu4e-completing-read-function #'completing-read
         mu4e-context-policy 'pick-first

@@ -9,7 +9,11 @@
 (use-package forge
   :ensure t
   :demand t
-  :after magit)
+  :after magit
+  :init
+  ;; evil-collection binds forge's keys itself; forge's own collide with it
+  ;; ("Cannot insert ... into magit-dispatch" at every magit start)
+  (setq forge-add-default-bindings nil))
 
 ;; honour .editorconfig (built into Emacs 30+); dotnix ships one
 (use-package editorconfig
@@ -149,3 +153,18 @@
   ;; vlf-setup hooks the "file is large, really open?" question
   (add-hook 'emacs-startup-hook
             (lambda () (run-with-idle-timer 2 nil #'require 'vlf-setup nil t))))
+
+(defun zmacs/delete-this-file ()
+  "Delete the file this buffer visits (after asking), then the buffer."
+  (interactive)
+  (let ((file (or buffer-file-name (user-error "Buffer isn't visiting a file"))))
+    (when (yes-or-no-p (format "Delete %s? " (abbreviate-file-name file)))
+      (delete-file file delete-by-moving-to-trash)
+      (kill-buffer))))
+
+(defun zmacs/copy-file-path ()
+  "Copy the visited file's path (the directory, in dired) to the kill ring."
+  (interactive)
+  (let ((path (abbreviate-file-name (or buffer-file-name default-directory))))
+    (kill-new path)
+    (message "Copied %s" path)))

@@ -16,6 +16,7 @@
     "SPC w" "+window"
     "SPC t" "+toggle"
     "SPC j" "+jump"
+    "SPC d" "+debug"
     "SPC TAB" "+workspace"))
 
 ;; discoverable transient menus (SPC-less) for the heavy builtin modes

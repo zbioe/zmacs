@@ -20,3 +20,15 @@
 (use-package consult-dir
   :ensure t
   :bind (("C-x C-d" . consult-dir)))
+
+;; `SPC /' searches the whole project; these stay below a directory (Doom's
+;; `SPC s d'/`SPC s D'). C-u can't pass a prefix (it scrolls in evil)
+(defun zmacs/ripgrep-here ()
+  "Ripgrep from the current buffer's directory (dired's, in dired)."
+  (interactive)
+  (consult-ripgrep default-directory))
+
+(defun zmacs/ripgrep-in (dir)
+  "Ripgrep from DIR, asked for."
+  (interactive "DRipgrep in: ")
+  (consult-ripgrep dir))

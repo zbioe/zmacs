@@ -45,7 +45,23 @@ let
     src = fetchLocked lock.nodes.${node}.locked;
   }) lock.nodes.${lock.root}.inputs;
 
+  # twist byte-compiles only the .el files at the root of a package's source
+  # (its lispFiles match "[^/]+\\.el" against the source path): the ones a
+  # recipe pulls from a subdirectory are installed but left as source, so they
+  # run interpreted (their .eln goes unused too: Emacs only finds it through
+  # the .elc). Compile those here, by glob, where the code is hot. Not for
+  # evil-collection's modes/ or nerd-icons' data/: run-once keymap setup and
+  # tables, which load ~14ms *faster* at startup as source than as .eln
+  compileAlso = globs: _: _: {
+    preBuild = ''
+      emacs --batch -L . -f batch-byte-compile \
+        $(ls ${globs} | grep -v -- '-pkg\.el$') || true
+    '';
+  };
+
   overrides = {
+    corfu = compileAlso "corfu-*.el"; # extensions/: corfu-popupinfo & co.
+    vertico = compileAlso "vertico-*.el"; # extensions/
     # its autoloads run (treesit-ready-p 'astro) from site-start, before
     # treesit is loaded: void-function, and startup dies. lang.el maps .astro
     astro-ts-mode = _: _: {

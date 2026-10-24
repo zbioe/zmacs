@@ -18,6 +18,21 @@
 (defvar zmacs-test-startup-warnings zmacs-test-warnings)
 (defvar zmacs-test-startup-errors zmacs-test-errors)
 
+;; package files loaded straight from source at startup (twist leaves what
+;; sits in a package's subdirectory uncompiled, twist.nix compiles the hot
+;; ones back); captured now, like the above
+(defvar zmacs-test-loaded-from-source
+  (seq-filter (lambda (file)
+                (and file
+                     (string-match-p "-emacs-pgtk-[^/]*/share/emacs/site-lisp/" file)
+                     (string-suffix-p ".el" file)
+                     ;; autoloads are meant to be source; doom's themes opt out
+                     ;; of compilation themselves (no-byte-compile); keymap
+                     ;; setup and icon tables load faster as source
+                     (not (string-match-p "\\(?:-autoloads\\|-theme\\|/subdirs\\)\\.el\\'" file))
+                     (not (string-match-p "/evil-collection-[^/]*\\.el\\'\\|/nerd-icons-data-" file))))
+              (mapcar #'car load-history)))
+
 (defun zmacs-test--key (keys &optional buffer)
   "The command KEYS run in BUFFER (or a fresh fundamental buffer)."
   (with-current-buffer (or buffer (get-buffer-create "*zmacs-test*"))
@@ -27,6 +42,10 @@
   "No warnings and no errors while loading the config."
   (should-not zmacs-test-startup-warnings)
   (should-not zmacs-test-startup-errors))
+
+(ert-deftest zmacs/compiled ()
+  "Every package file loaded at startup is compiled, none runs interpreted."
+  (should-not zmacs-test-loaded-from-source))
 
 (ert-deftest zmacs/no-package-el ()
   "Packages only come from Nix: nothing fetched into the init dir."
@@ -54,6 +73,48 @@
     (should (eq (zmacs-test--key "C-n" buf) #'evil-next-line))
     (should (bound-and-true-p dirvish-override-dired-mode))
     (kill-buffer buf)))
+
+;; dired, help, magit, ... bind SPC themselves (evil-collection), which used
+;; to shadow the leader there
+(ert-deftest zmacs/leader-everywhere ()
+  "SPC reaches the leader in every kind of buffer, and searches from it."
+  (let ((bufs (list (get-buffer-create "*zmacs-test*")
+                    (dired-noselect temporary-file-directory)
+                    (with-current-buffer (get-buffer-create "*zmacs-help*")
+                      (help-mode) (current-buffer))
+                    (get-buffer-create "*Messages*"))))
+    (dolist (buf bufs)
+      (with-current-buffer buf
+        (evil-normal-state)
+        (evil-normalize-keymaps)
+        (should (equal (list (buffer-name) (key-binding (kbd "SPC s d")))
+                       (list (buffer-name) #'zmacs/ripgrep-here)))
+        ;; a terminal frame sends TAB, a GUI <tab> (falling back to TAB)
+        (should (eq (key-binding (kbd "SPC TAB b")) #'tabspaces-switch-to-buffer))
+        (evil-visual-state)
+        (should (equal (list (buffer-name) (key-binding (kbd "SPC /")))
+                       (list (buffer-name) #'consult-ripgrep)))
+        (evil-normal-state)))
+    ;; SPC s d in dired searches the listed directory, not the project
+    (with-current-buffer (cadr bufs)
+      (let (searched)
+        (cl-letf (((symbol-function 'consult-ripgrep)
+                   (lambda (&optional dir _) (setq searched dir))))
+          (call-interactively #'zmacs/ripgrep-here))
+        (should (equal searched (file-name-as-directory temporary-file-directory)))))))
+
+(ert-deftest zmacs/leader-commands ()
+  "Every leader binding names a command that exists (or is autoloaded)."
+  (let (missing)
+    (cl-labels ((walk (map prefix)
+                  (map-keymap
+                   (lambda (ev def)
+                     (let ((keys (concat prefix " " (single-key-description ev))))
+                       (cond ((keymapp def) (walk def keys))
+                             ((and def (not (commandp def))) (push (cons keys def) missing)))))
+                   map)))
+      (walk (lookup-key evil-normal-state-map [leader]) "SPC"))
+    (should-not missing)))
 
 (ert-deftest zmacs/help-quit ()
   "q quits special buffers (evil normal leaves q free)."
@@ -113,14 +174,25 @@
       (kill-buffer))))
 
 (defun zmacs-test--mode-of (name content)
-  "Major mode a file called NAME holding CONTENT opens in."
+  "Major mode a file called NAME holding CONTENT opens in.
+A hook that errors during mode setup (`normal-mode' only reports it as a
+\"File mode specification error\" message) is returned as that message."
   (let* ((dir (make-temp-file "zmacs" t))
-         (file (expand-file-name name dir)))
+         (file (expand-file-name name dir))
+         (failure nil)
+         (watch (lambda (format-string &rest args)
+                  (when (and format-string
+                             (string-prefix-p "File mode specification error"
+                                              format-string))
+                    (setq failure (apply #'format-message format-string args))))))
     (make-directory (file-name-directory file) t)
     (with-temp-file file (insert content))
-    (let ((buf (find-file-noselect file)))
-      (prog1 (buffer-local-value 'major-mode buf)
-        (kill-buffer buf)))))
+    (advice-add 'message :before watch)
+    (unwind-protect
+        (let ((buf (find-file-noselect file)))
+          (prog1 (or failure (buffer-local-value 'major-mode buf))
+            (kill-buffer buf)))
+      (advice-remove 'message watch))))
 
 (ert-deftest zmacs/file-formats ()
   "Every format found across ~/dev opens in a real mode, never fundamental."
