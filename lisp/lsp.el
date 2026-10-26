@@ -79,10 +79,17 @@
   :ensure t
   :after (consult eglot))
 
-;; documentation and diagnostics in a childframe at point
+;; documentation in a childframe at point, only when asked (K or SPC c k): the
+;; hover mode popped it up whenever the cursor rested, covering the code. The
+;; one-line summary stays in the echo area; the box closes on the next move
 (use-package eldoc-box
   :ensure t
-  :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode))
+  :commands eldoc-box-help-at-point
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global
+      (kbd "K") #'eldoc-box-help-at-point
+      (kbd "<leader>ck") #'eldoc-box-help-at-point)))
 
 ;; nixd knows this host's NixOS and home-manager options through the dotnix
 ;; flake; gopls formats with gofumpt and runs the extra analyses

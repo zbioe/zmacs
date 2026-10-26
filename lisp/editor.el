@@ -141,8 +141,7 @@
   :config
   ;; what to switch off too when so-long takes over a long-lined buffer
   (dolist (mode '(jinx-mode diff-hl-mode treesit-fold-mode indent-bars-mode
-                  flycheck-mode yas-minor-mode ws-butler-mode apheleia-mode
-                  eldoc-box-hover-at-point-mode))
+                  flycheck-mode yas-minor-mode ws-butler-mode apheleia-mode))
     (add-to-list 'so-long-minor-modes mode)))
 
 (setq large-file-warning-threshold (* 50 1024 1024))

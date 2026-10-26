@@ -116,6 +116,15 @@
       (walk (lookup-key evil-normal-state-map [leader]) "SPC"))
     (should-not missing)))
 
+(ert-deftest zmacs/docs-on-demand ()
+  "Docs pop up only when asked (K), never by resting the cursor."
+  (require 'eglot)
+  (should-not (memq 'eldoc-box-hover-at-point-mode eglot-managed-mode-hook))
+  (should-not (memq 'eldoc-box-hover-mode eglot-managed-mode-hook))
+  (with-temp-buffer
+    (evil-normal-state)
+    (should (eq (key-binding (kbd "K")) #'eldoc-box-help-at-point))))
+
 (ert-deftest zmacs/help-quit ()
   "q quits special buffers (evil normal leaves q free)."
   (with-current-buffer (get-buffer-create "*zmacs-help*")
