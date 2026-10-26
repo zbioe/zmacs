@@ -30,11 +30,19 @@
 
 (use-package embark
   :ensure t
-  :bind (("C-." . embark-act)
-         ("C-h B" . embark-bindings)))
+  ;; C-; like Doom: evil's normal state takes C-. (evil-repeat-pop)
+  :bind (("C-;" . embark-act)
+         ("C-." . embark-act)
+         ("C-h B" . embark-bindings))
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>a") #'embark-act)))
 
+;; exporting consult results (consult-ripgrep → embark-export) gives a grep
+;; buffer that wgrep edits in place; without :demand it never loaded
 (use-package embark-consult
   :ensure t
+  :demand t
   :after (embark consult))
 
 (use-package corfu

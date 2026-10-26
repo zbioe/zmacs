@@ -125,6 +125,17 @@
     (evil-normal-state)
     (should (eq (key-binding (kbd "K")) #'eldoc-box-help-at-point))))
 
+(ert-deftest zmacs/embark ()
+  "embark-act is reachable from normal state (C-. is evil's), and consult
+results export to an editable grep buffer (embark-consult loads)."
+  (with-temp-buffer
+    (evil-normal-state)
+    (should (eq (key-binding (kbd "C-;")) #'embark-act))
+    (should (eq (key-binding (kbd "SPC a")) #'embark-act)))
+  (require 'embark)
+  (require 'consult)
+  (should (featurep 'embark-consult)))
+
 (ert-deftest zmacs/help-quit ()
   "q quits special buffers (evil normal leaves q free)."
   (with-current-buffer (get-buffer-create "*zmacs-help*")
