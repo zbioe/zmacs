@@ -111,7 +111,7 @@
     csv-mode = {
       flake = false;
       type = "tarball";
-      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar";
+      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/csv-mode-1.27.tar";
     };
     cython-mode = {
       flake = false;
@@ -550,7 +550,7 @@
     vlf = {
       flake = false;
       type = "tarball";
-      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar";
+      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/vlf-1.7.2.tar";
     };
     vundo = {
       flake = false;

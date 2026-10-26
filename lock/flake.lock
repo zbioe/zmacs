@@ -294,11 +294,11 @@
         "lastModified": 1723194179,
         "narHash": "sha256-ErzKM6usjp2FrrbYwadJCfiivenMCDD9uojwJbzV3co=",
         "type": "tarball",
-        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar"
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/csv-mode-1.27.tar"
       },
       "original": {
         "type": "tarball",
-        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/csv-mode-1.27.tar"
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/csv-mode-1.27.tar"
       }
     },
     "cython-mode": {
@@ -1581,11 +1581,11 @@
         "lastModified": 1597870992,
         "narHash": "sha256-uKsOBodY7pVMcwEOv59wIhor0PVVTKNk+D2Wvhhdgjg=",
         "type": "tarball",
-        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar"
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/vlf-1.7.2.tar"
       },
       "original": {
         "type": "tarball",
-        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/vlf-1.7.2.tar"
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/vlf-1.7.2.tar"
       }
     },
     "vundo": {

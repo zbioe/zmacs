@@ -23,8 +23,9 @@
       url = "github:emacsmirror/epkgs";
       flake = false;
     };
+    # a commit of the mirror (master changes daily; `just update` moves it)
     gnu-elpa-archive = {
-      url = "file+https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/archive-contents";
+      url = "file+https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/archive-contents";
       flake = false;
     };
   };

@@ -142,7 +142,7 @@ in
       name = "gnu";
       type = "archive-contents";
       path = inputs.gnu-elpa-archive.outPath;
-      base-url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/";
+      base-url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/";
     }
     {
       name = "emacsmirror";
