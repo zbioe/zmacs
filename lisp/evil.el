@@ -21,7 +21,9 @@
         evil-undo-system 'undo-redo
         evil-split-window-below t
         evil-vsplit-window-right t
-        evil-want-Y-yank-to-eol t)
+        evil-want-Y-yank-to-eol t
+        ;; vim's / and n: persistent match highlighting (:noh clears it)
+        evil-search-module 'evil-search)
   :config
   (evil-mode 1)
   (evil-set-leader 'normal (kbd "SPC"))
@@ -34,6 +36,8 @@
     (evil-make-intercept-map zmacs-leader-mode-map state t))
   (evil-set-leader 'normal (kbd "\\") t) ; local leader
   (zmacs-leader-mode 1)
+  (define-key evil-window-map "u" #'winner-undo)
+  (define-key evil-window-map (kbd "C-r") #'winner-redo)
   (evil-define-key 'normal 'global
     (kbd "<leader>:") #'execute-extended-command
     (kbd "<leader>u") #'universal-argument ; C-u scrolls
@@ -57,6 +61,7 @@
     (kbd "<leader>bs") #'scratch-buffer
     ;; search
     (kbd "<leader>/") #'consult-ripgrep
+    (kbd "<leader>'") #'vertico-repeat
     (kbd "<leader>ss") #'consult-line
     (kbd "<leader>sb") #'consult-line
     (kbd "<leader>sf") #'consult-fd
@@ -95,6 +100,8 @@
     (kbd "<leader>ws") #'evil-window-split
     (kbd "<leader>wd") #'evil-window-delete
     (kbd "<leader>wo") #'delete-other-windows
+    (kbd "<leader>wu") #'winner-undo
+    (kbd "<leader>wr") #'winner-redo
     (kbd "<leader>wh") #'evil-window-left
     (kbd "<leader>wj") #'evil-window-down
     (kbd "<leader>wk") #'evil-window-up

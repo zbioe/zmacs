@@ -44,3 +44,33 @@
 (show-paren-mode 1)
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
+
+;; scroll a line at a time past the window edge instead of jumping to recenter
+;; the point; smooth pixel scrolling on a touchpad
+(setq scroll-conservatively 101
+      scroll-margin 0
+      recentf-max-saved-items 200)
+
+;; global modes nobody needs in the first half second, turned on once Emacs is
+;; idle: each costs a few ms to load, and winner-mode goes through setopt,
+;; which loads cus-edit (~20ms). FN is called with 1
+(defvar zmacs-idle-modes nil "Global modes `zmacs/idle-modes' turns on.")
+(defun zmacs/idle-modes ()
+  "Turn on `zmacs-idle-modes' once Emacs is idle after startup."
+  (run-with-idle-timer
+   0.5 nil (lambda () (dolist (mode zmacs-idle-modes)
+                        (when (fboundp mode) (funcall mode 1))))))
+(add-hook 'emacs-startup-hook #'zmacs/idle-modes)
+
+;; smooth pixel scrolling on a touchpad; C-x o o o, C-x { { {: repeat the last
+;; key of a sequence without its prefix; undo/redo window layouts (evil: C-w u
+;; / C-w C-r)
+(setq zmacs-idle-modes '(pixel-scroll-precision-mode repeat-mode winner-mode))
+(autoload 'winner-undo "winner" nil t)
+(autoload 'winner-redo "winner" nil t)
+
+;; URLs and mail addresses in comments and strings are clickable
+(zmacs/define-file-only goto-address-prog-mode)
+(zmacs/define-file-only goto-address-mode)
+(add-hook 'prog-mode-hook #'zmacs/goto-address-prog-mode-in-files)
+(add-hook 'text-mode-hook #'zmacs/goto-address-mode-in-files)

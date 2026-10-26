@@ -22,3 +22,12 @@
   :commands (osm-home osm-search osm-goto)
   :init
   (setq osm-home '(-23.55 -46.63 12)))
+
+;; RSS/Atom reader (SPC o r); feeds go in `elfeed-feeds' (or M-x elfeed-add-feed)
+(use-package elfeed
+  :ensure t
+  :commands elfeed
+  :init
+  (setq elfeed-db-directory (locate-user-emacs-file "elfeed"))
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>or") #'elfeed)))

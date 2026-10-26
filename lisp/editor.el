@@ -167,3 +167,82 @@
   (let ((path (abbreviate-file-name (or buffer-file-name default-directory))))
     (kill-new path)
     (message "Copied %s" path)))
+
+;; --- git ---------------------------------------------------------------------
+
+;; step through a file's past versions (p/n, q quits)
+(use-package git-timemachine
+  :ensure t
+  :commands git-timemachine
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>gt") #'git-timemachine)))
+
+;; the forge URL of the current line/region, to the kill ring
+(use-package git-link
+  :ensure t
+  :commands (git-link git-link-commit git-link-homepage)
+  :init
+  (setq git-link-use-commit t)
+  (with-eval-after-load 'evil
+    (evil-define-key '(normal visual) 'global
+      (kbd "<leader>gy") #'git-link
+      (kbd "<leader>gY") #'git-link-homepage)))
+
+;; the project's TODO/FIXME (via rg) as a section of magit-status
+(use-package magit-todos
+  :ensure t
+  :demand t
+  :after magit
+  :config
+  (magit-todos-mode 1))
+
+;; structural diffs (difft from Nix, ZMACS_DIFFT): magit's diff menu (d) and
+;; blame (B) get a "difftastic" entry; SPC g d for the file at point
+(use-package difftastic
+  :ensure t
+  :demand t
+  :after magit
+  :init
+  (setq difftastic-executable (or (getenv "ZMACS_DIFFT") "difft"))
+  :config
+  (difftastic-bindings-mode 1))
+
+;; --- editing -------------------------------------------------------------------
+
+;; flash the text an operator yanked/deleted/changed/pasted
+(use-package evil-goggles
+  :ensure t
+  :commands evil-goggles-mode
+  :init
+  (add-to-list 'zmacs-idle-modes #'evil-goggles-mode)
+  (setq evil-goggles-duration 0.1
+        evil-goggles-async-duration 0.25
+        evil-goggles-pulse nil))
+
+;; multiple cursors, under evil-collection's "g ." prefix: g.a on every match
+;; of the symbol, g.n/g.N next/previous match, g.o/g.O a cursor below/above,
+;; g.RET one here, g.q quit. evil-mc's own C-n/C-p/C-t/M-n/M-p would take our
+;; normal-state movement, so they go; turned on at idle (it's large)
+(use-package evil-mc
+  :ensure t
+  :commands global-evil-mc-mode
+  :init
+  (add-to-list 'zmacs-idle-modes #'global-evil-mc-mode)
+  :config
+  (dolist (key '("C-n" "C-p" "C-t" "M-n" "M-p"))
+    (evil-define-key '(normal visual) evil-mc-key-map (kbd key) nil)))
+
+;; foo_bar → fooBar → FooBar → FOO_BAR → foo-bar ...
+(use-package string-inflection
+  :ensure t
+  :commands string-inflection-all-cycle
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global
+      (kbd "<leader>ci") #'string-inflection-all-cycle)))
+
+;; *scratch* survives restarts
+(use-package persistent-scratch
+  :ensure t
+  :hook (emacs-startup . persistent-scratch-setup-default))

@@ -80,6 +80,11 @@
             "${emacsPkgs.pdf-tools}/share/emacs/site-lisp/elpa"
             "${emacsPkgs.mu4e}/share/emacs/site-lisp/elpa"
             "${emacsPkgs.jinx}/share/emacs/site-lisp/elpa"
+            # libghostty's terminal, its Zig module built by nixpkgs; and the
+            # evil glue, from here too (as :ensure t it'd drag ghostel into
+            # twist's lock, like multi-vterm did with vterm)
+            "${emacsPkgs.ghostel}/share/emacs/site-lisp/elpa"
+            "${emacsPkgs.evil-ghostel}/share/emacs/site-lisp/elpa"
           ];
           # jinx's enchant reads hunspell dictionaries from DICPATH or from
           # ~/.config/enchant/hunspell
@@ -100,6 +105,8 @@
             ZMACS_LSP_BOOSTER = "${pkgs.emacs-lsp-booster}/bin/emacs-lsp-booster";
             # code-cells converts .ipynb to and from "# %%" python with it
             ZMACS_JUPYTEXT = "${pkgs.python3Packages.jupytext}/bin/jupytext";
+            # structural diffs in magit (difftastic.el)
+            ZMACS_DIFFT = "${pkgs.difftastic}/bin/difft";
             DICPATH = "${dicts}/share/hunspell";
           };
 

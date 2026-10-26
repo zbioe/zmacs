@@ -4,7 +4,17 @@
   :ensure t
   :demand t
   :config
-  (vertico-mode 1))
+  (vertico-mode 1)
+  ;; in file prompts DEL/M-DEL take a whole directory off, and typing ~/ or /
+  ;; over a path starts afresh
+  (keymap-set vertico-map "RET" #'vertico-directory-enter)
+  (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
+  (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  ;; SPC ' resumes the last search/prompt where it was left, across restarts
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'vertico-repeat-history)))
 
 (use-package orderless
   :ensure t
@@ -55,6 +65,10 @@
         corfu-auto-prefix 2)
   :config
   (global-corfu-mode 1)
+  ;; candidates you pick often come first, remembered across restarts
+  (corfu-history-mode 1)
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'corfu-history))
   (require 'corfu-popupinfo nil t)
   (when (fboundp 'corfu-popupinfo-mode)
     (corfu-popupinfo-mode 1)))

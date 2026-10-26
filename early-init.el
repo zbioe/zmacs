@@ -5,6 +5,10 @@
 (setq package-enable-at-startup nil
       package-archives nil)
 
+;; every `require' scans `load-path' (~150 dirs, nearly all in the read-only
+;; Nix store) file by file; cache each directory's listing once instead
+(setq load-path-filter-function #'load-path-filter-cache-directory-files)
+
 ;; no GC and no file-name handlers (tramp, jka-compr) while loading the config;
 ;; settle on a roomy-but-bounded GC threshold once startup is done
 (setq gc-cons-threshold most-positive-fixnum)

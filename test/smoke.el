@@ -14,7 +14,10 @@
   (seq-filter #'featurep '(combobulate-rules jinx magit forge url-http
                            ;; file-only helpers that *scratch* used to pull in
                            flycheck diff-hl indent-bars cus-edit log-view vc-dir
-                           yasnippet dirvish)))
+                           yasnippet dirvish
+                           ;; loaded with the first code file, or on idle
+                           evil-textobj-tree-sitter evil-goggles evil-mc eros
+                           pixel-scroll repeat goto-addr winner)))
 (defvar zmacs-test-startup-warnings zmacs-test-warnings)
 (defvar zmacs-test-startup-errors zmacs-test-errors)
 
@@ -147,6 +150,48 @@ results export to an editable grep buffer (embark-consult loads)."
   (require 'vterm)
   (should (eq (lookup-key vterm-mode-map (kbd "C-h")) #'vterm-send-backspace))
   (should (lookup-key vterm-mode-map (kbd "C-w"))))
+
+(ert-deftest zmacs/ghostel ()
+  "ghostel's module comes from Nix (never downloaded), and the shell gets C-h."
+  (require 'ghostel)
+  (should (featurep 'ghostel-module))
+  (should-not ghostel-module-auto-install)
+  (require 'evil-ghostel)
+  (should (memq #'evil-ghostel-mode ghostel-mode-hook))
+  (should (eq (lookup-key (evil-get-auxiliary-keymap evil-ghostel-mode-map 'insert)
+                          (kbd "C-h"))
+              #'zmacs/ghostel-backspace)))
+
+(ert-deftest zmacs/power-tools ()
+  "Grammar text objects, resumable searches, completion history, and
+multiple cursors that leave our C-n/C-p alone."
+  ;; the text objects load with the first code file
+  (let* ((file (make-temp-file "zmacs" nil ".py"
+                               "def foo(a):\n    return a\n\n\ndef bar():\n    pass\n"))
+         (buf (find-file-noselect file)))
+    (should (featurep 'evil-textobj-tree-sitter))
+    (with-current-buffer buf
+      (goto-char (point-min))
+      (search-forward "return")
+      ;; a macro: expand it now that the package is loaded
+      (let ((r (funcall (eval '(evil-textobj-tree-sitter-get-textobj "function.outer")) 1)))
+        (should (equal (buffer-substring-no-properties (nth 0 r) (nth 1 r))
+                       "def foo(a):\n    return a"))))
+    (kill-buffer buf))
+  (dolist (mode '(pixel-scroll-precision-mode repeat-mode winner-mode
+                  evil-goggles-mode global-evil-mc-mode eros-mode))
+    (should (memq mode zmacs-idle-modes)))
+  (should (memq #'vertico-repeat-save minibuffer-setup-hook))
+  (should (bound-and-true-p corfu-history-mode))
+  (global-evil-mc-mode 1)
+  (with-temp-buffer
+    (evil-local-mode 1)
+    (evil-normal-state)
+    (evil-mc-mode 1)
+    (evil-normalize-keymaps)
+    (should (eq (key-binding (kbd "C-n")) #'evil-next-line))
+    (should (eq (key-binding (kbd "C-p")) #'evil-previous-line))
+    (should (eq (key-binding (kbd "g . a")) #'evil-mc-make-all-cursors))))
 
 (ert-deftest zmacs/natives ()
   "Natives from Nix: tree-sitter grammars and the jinx module + dictionaries."

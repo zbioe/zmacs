@@ -24,6 +24,12 @@
       type = "git";
       url = "https://git.isincredibly.gay/srxl/astro-ts-mode.git";
     };
+    async = {
+      flake = false;
+      owner = "jwiegley";
+      repo = "emacs-async";
+      type = "github";
+    };
     avy = {
       flake = false;
       owner = "abo-abo";
@@ -34,6 +40,12 @@
       flake = false;
       owner = "tinted-theming";
       repo = "base16-emacs";
+      type = "github";
+    };
+    breadcrumb = {
+      flake = false;
+      owner = "joaotavora";
+      repo = "breadcrumb";
       type = "github";
     };
     cape = {
@@ -137,10 +149,22 @@
       repo = "deflate";
       type = "github";
     };
+    devdocs = {
+      flake = false;
+      owner = "astoff";
+      repo = "devdocs.el";
+      type = "github";
+    };
     diff-hl = {
       flake = false;
       owner = "dgutov";
       repo = "diff-hl";
+      type = "github";
+    };
+    difftastic = {
+      flake = false;
+      owner = "pkryger";
+      repo = "difftastic.el";
       type = "github";
     };
     dirvish = {
@@ -185,6 +209,12 @@
       repo = "eldoc-box";
       type = "github";
     };
+    elfeed = {
+      flake = false;
+      owner = "emacs-elfeed";
+      repo = "elfeed";
+      type = "github";
+    };
     elisp-refs = {
       flake = false;
       owner = "Wilfred";
@@ -215,6 +245,18 @@
       repo = "envrc";
       type = "github";
     };
+    eros = {
+      flake = false;
+      owner = "xiongtx";
+      repo = "eros";
+      type = "github";
+    };
+    esxml = {
+      flake = false;
+      owner = "tali713";
+      repo = "esxml";
+      type = "github";
+    };
     evil = {
       flake = false;
       owner = "emacs-evil";
@@ -233,10 +275,28 @@
       repo = "evil-commentary";
       type = "github";
     };
+    evil-goggles = {
+      flake = false;
+      owner = "edkolev";
+      repo = "evil-goggles";
+      type = "github";
+    };
+    evil-mc = {
+      flake = false;
+      owner = "gabesoft";
+      repo = "evil-mc";
+      type = "github";
+    };
     evil-surround = {
       flake = false;
       owner = "emacs-evil";
       repo = "evil-surround";
+      type = "github";
+    };
+    evil-textobj-tree-sitter = {
+      flake = false;
+      owner = "meain";
+      repo = "evil-textobj-tree-sitter";
       type = "github";
     };
     exunit = {
@@ -287,11 +347,22 @@
       repo = "ghub";
       type = "github";
     };
+    git-link = {
+      flake = false;
+      owner = "sshaw";
+      repo = "git-link";
+      type = "github";
+    };
     git-modes = {
       flake = false;
       owner = "magit";
       repo = "git-modes";
       type = "github";
+    };
+    git-timemachine = {
+      flake = false;
+      type = "git";
+      url = "https://codeberg.org/pidu/git-timemachine.git";
     };
     hcl-mode = {
       flake = false;
@@ -335,6 +406,12 @@
       repo = "Emacs-langtool";
       type = "github";
     };
+    link-hint = {
+      flake = false;
+      owner = "noctuid";
+      repo = "link-hint.el";
+      type = "github";
+    };
     llama = {
       flake = false;
       owner = "tarsius";
@@ -351,6 +428,12 @@
       flake = false;
       owner = "magit";
       repo = "magit";
+      type = "github";
+    };
+    magit-todos = {
+      flake = false;
+      owner = "alphapapa";
+      repo = "magit-todos";
       type = "github";
     };
     marginalia = {
@@ -395,10 +478,21 @@
       repo = "nix-ts-mode";
       type = "github";
     };
+    nov = {
+      flake = false;
+      type = "git";
+      url = "https://depp.brause.cc/nov.el.git";
+    };
     nushell-ts-mode = {
       flake = false;
       owner = "herbertjones";
       repo = "nushell-ts-mode";
+      type = "github";
+    };
+    olivetti = {
+      flake = false;
+      owner = "rnkn";
+      repo = "olivetti";
       type = "github";
     };
     orderless = {
@@ -435,6 +529,18 @@
       flake = false;
       owner = "minad";
       repo = "osm";
+      type = "github";
+    };
+    pcre2el = {
+      flake = false;
+      owner = "joddie";
+      repo = "pcre2el";
+      type = "github";
+    };
+    persistent-scratch = {
+      flake = false;
+      owner = "Fanael";
+      repo = "persistent-scratch";
       type = "github";
     };
     plantuml-mode = {
@@ -494,6 +600,18 @@
       flake = false;
       owner = "skeeto";
       repo = "emacs-web-server";
+      type = "github";
+    };
+    spacious-padding = {
+      flake = false;
+      owner = "protesilaos";
+      repo = "spacious-padding";
+      type = "github";
+    };
+    string-inflection = {
+      flake = false;
+      owner = "akicho8";
+      repo = "string-inflection";
       type = "github";
     };
     tablist = {

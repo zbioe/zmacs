@@ -215,3 +215,55 @@ Only for modes it knows itself: a derived mode runs its parent's hook too
          . zmacs/combobulate)
   :init
   (setq combobulate-key-prefix "C-c o"))
+
+;; text objects from the grammar (as Doom's): vaf/vif function, vaC class,
+;; vaA argument, vac comment, val loop, vav conditional; ]f [f ]C [C jump.
+;; get-textobj is a macro over literal query names: known at compile time
+(eval-when-compile (require 'evil-textobj-tree-sitter nil t))
+(defun zmacs/goto-textobj (group previous)
+  "A command jumping to the next (PREVIOUS: last) GROUP text object."
+  (lambda ()
+    (interactive)
+    (evil-textobj-tree-sitter-goto-textobj group previous)))
+
+(defun zmacs/textobj-load ()
+  "Load the grammar text objects with the first code file (~20ms)."
+  (when buffer-file-name
+    (remove-hook 'prog-mode-hook #'zmacs/textobj-load)
+    (require 'evil-textobj-tree-sitter)))
+
+(use-package evil-textobj-tree-sitter
+  :ensure t
+  :hook (prog-mode . zmacs/textobj-load)
+  :config
+  (let ((outer evil-outer-text-objects-map)
+        (inner evil-inner-text-objects-map))
+    (define-key outer "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+    (define-key inner "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+    (define-key outer "C" (evil-textobj-tree-sitter-get-textobj "class.outer"))
+    (define-key inner "C" (evil-textobj-tree-sitter-get-textobj "class.inner"))
+    (define-key outer "A" (evil-textobj-tree-sitter-get-textobj "parameter.outer"))
+    (define-key inner "A" (evil-textobj-tree-sitter-get-textobj "parameter.inner"))
+    (define-key outer "c" (evil-textobj-tree-sitter-get-textobj "comment.outer"))
+    (define-key inner "c" (evil-textobj-tree-sitter-get-textobj "comment.inner"))
+    (define-key outer "l" (evil-textobj-tree-sitter-get-textobj "loop.outer"))
+    (define-key inner "l" (evil-textobj-tree-sitter-get-textobj "loop.inner"))
+    (define-key outer "v" (evil-textobj-tree-sitter-get-textobj "conditional.outer"))
+    (define-key inner "v" (evil-textobj-tree-sitter-get-textobj "conditional.inner")))
+  (evil-define-key '(normal visual) 'global
+    (kbd "]f") (zmacs/goto-textobj "function.outer" nil)
+    (kbd "[f") (zmacs/goto-textobj "function.outer" t)
+    (kbd "]C") (zmacs/goto-textobj "class.outer" nil)
+    (kbd "[C") (zmacs/goto-textobj "class.outer" t)))
+
+;; elisp results shown inline at point (C-x C-e, eval-last-sexp)
+(use-package eros
+  :ensure t
+  :commands eros-mode
+  :init
+  (add-to-list 'zmacs-idle-modes #'eros-mode))
+
+;; EPUBs as reflowed text
+(use-package nov
+  :ensure t
+  :mode ("\\.epub\\'" . nov-mode))

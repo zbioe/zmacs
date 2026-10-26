@@ -183,3 +183,28 @@
   (require 'popper-echo nil t)
   (when (fboundp 'popper-echo-mode)
     (popper-echo-mode 1)))
+
+;; "project › dir › file › class › function" in the header line of file
+;; buffers, from project.el and imenu (eglot's symbols when a server runs)
+(zmacs/define-file-only breadcrumb-local-mode)
+(use-package breadcrumb
+  :ensure t
+  :hook ((prog-mode conf-mode) . zmacs/breadcrumb-local-mode-in-files))
+
+;; centred, width-limited text for prose (SPC t z)
+(use-package olivetti
+  :ensure t
+  :commands olivetti-mode
+  :init
+  (setq olivetti-body-width 100)
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>tz") #'olivetti-mode)))
+
+;; breathing room around windows and the mode line (SPC t p); off by default
+;; so the frame keeps reading as one plane with the bar
+(use-package spacious-padding
+  :ensure t
+  :commands spacious-padding-mode
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>tp") #'spacious-padding-mode)))

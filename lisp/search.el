@@ -32,3 +32,24 @@
   "Ripgrep from DIR, asked for."
   (interactive "DRipgrep in: ")
   (consult-ripgrep dir))
+
+;; open/copy a visible URL, file link or button with avy-style hints
+(use-package link-hint
+  :ensure t
+  :commands (link-hint-open-link link-hint-copy-link)
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global
+      (kbd "<leader>sl") #'link-hint-open-link
+      (kbd "<leader>sL") #'link-hint-copy-link)))
+
+;; offline docs for languages and libraries in a buffer (devdocs.io sets,
+;; fetched once with M-x devdocs-install); SPC h d searches the installed ones
+(use-package devdocs
+  :ensure t
+  :commands (devdocs-lookup devdocs-install devdocs-peruse)
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global
+      (kbd "<leader>hd") #'devdocs-lookup
+      (kbd "<leader>hD") #'devdocs-install)))

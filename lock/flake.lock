@@ -64,6 +64,22 @@
         "url": "https://git.isincredibly.gay/srxl/astro-ts-mode.git"
       }
     },
+    "async": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1451290400,
+        "narHash": "sha256-5nTkAnB6SOsFg9aXOxI5oON9RBByVO3Lq/vrmqHVgw4=",
+        "owner": "jwiegley",
+        "repo": "emacs-async",
+        "rev": "1794ea4955c6eeb62471b232a2d4fd6a6925a2c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jwiegley",
+        "repo": "emacs-async",
+        "type": "github"
+      }
+    },
     "avy": {
       "flake": false,
       "locked": {
@@ -93,6 +109,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-emacs",
+        "type": "github"
+      }
+    },
+    "breadcrumb": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785872442,
+        "narHash": "sha256-HrDcPnFNSaODR73XNhmWjtj5NX8wEwFXKJUFk+o6Bvg=",
+        "owner": "joaotavora",
+        "repo": "breadcrumb",
+        "rev": "bcf7f1d1c102f8430c017d66aeee5d12e26585a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "joaotavora",
+        "repo": "breadcrumb",
         "type": "github"
       }
     },
@@ -365,6 +397,22 @@
         "type": "github"
       }
     },
+    "devdocs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761137747,
+        "narHash": "sha256-H4bdW7TlJ6qUIkyl3B6xiLhxpNCHIHM8cPsrWSBbw+A=",
+        "owner": "astoff",
+        "repo": "devdocs.el",
+        "rev": "25c746024ddf73570195bf42b841f761a2fee10c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astoff",
+        "repo": "devdocs.el",
+        "type": "github"
+      }
+    },
     "diff-hl": {
       "flake": false,
       "locked": {
@@ -378,6 +426,22 @@
       "original": {
         "owner": "dgutov",
         "repo": "diff-hl",
+        "type": "github"
+      }
+    },
+    "difftastic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791362661,
+        "narHash": "sha256-x/TC+6LdJRuKKcCRkQzki6GIg+FDuKfJWoS3QblssTc=",
+        "owner": "pkryger",
+        "repo": "difftastic.el",
+        "rev": "2af7e5ee04a3da35ca77c53bc85859f61e8a282c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pkryger",
+        "repo": "difftastic.el",
         "type": "github"
       }
     },
@@ -493,6 +557,22 @@
         "type": "github"
       }
     },
+    "elfeed": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791627012,
+        "narHash": "sha256-eBOZqiIIYSCwFFPL1pEdTnQBx6l0/j7uGIOvbF8RB1Q=",
+        "owner": "emacs-elfeed",
+        "repo": "elfeed",
+        "rev": "4c962a423c9f3eef9472555fccecf268f9d380fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-elfeed",
+        "repo": "elfeed",
+        "type": "github"
+      }
+    },
     "elisp-refs": {
       "flake": false,
       "locked": {
@@ -573,6 +653,38 @@
         "type": "github"
       }
     },
+    "eros": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766720707,
+        "narHash": "sha256-Y6Pl0Z9hNSjUwF7Ur55s5k3SW5Qg8Lf1pwuKa1Kzs1c=",
+        "owner": "xiongtx",
+        "repo": "eros",
+        "rev": "66ee90baa3162fea028f5101ddcc370f7d1d4fcf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xiongtx",
+        "repo": "eros",
+        "type": "github"
+      }
+    },
+    "esxml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774801076,
+        "narHash": "sha256-qg2j7qTyNrCvmzQSETekjxG/nMafqSgkb01ksC1Fu8Y=",
+        "owner": "tali713",
+        "repo": "esxml",
+        "rev": "6a375888a74b7563eb53176aad81faee8b858189",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tali713",
+        "repo": "esxml",
+        "type": "github"
+      }
+    },
     "evil": {
       "flake": false,
       "locked": {
@@ -621,6 +733,38 @@
         "type": "github"
       }
     },
+    "evil-goggles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697873907,
+        "narHash": "sha256-NYkf/7yomMe8pMuyJ6++zvQFZ3i/W0AefZCNWMU6nK0=",
+        "owner": "edkolev",
+        "repo": "evil-goggles",
+        "rev": "34ca276a85f615d2b45e714c9f8b5875bcb676f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edkolev",
+        "repo": "evil-goggles",
+        "type": "github"
+      }
+    },
+    "evil-mc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729889113,
+        "narHash": "sha256-5ZPJNCkx4xlzJaB1HoQOVDkYi5fr414heBP2xnAV/j8=",
+        "owner": "gabesoft",
+        "repo": "evil-mc",
+        "rev": "7e363dd6b0a39751e13eb76f2e9b7b13c7054a43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gabesoft",
+        "repo": "evil-mc",
+        "type": "github"
+      }
+    },
     "evil-surround": {
       "flake": false,
       "locked": {
@@ -634,6 +778,22 @@
       "original": {
         "owner": "emacs-evil",
         "repo": "evil-surround",
+        "type": "github"
+      }
+    },
+    "evil-textobj-tree-sitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781595021,
+        "narHash": "sha256-Wl0cNepkzdMa73x57cPDhMf72QmpcUd373GQH2JTkxw=",
+        "owner": "meain",
+        "repo": "evil-textobj-tree-sitter",
+        "rev": "fecc0e11615df31a6651ce11b012388e53cad4e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "meain",
+        "repo": "evil-textobj-tree-sitter",
         "type": "github"
       }
     },
@@ -765,6 +925,22 @@
         "type": "github"
       }
     },
+    "git-link": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784844780,
+        "narHash": "sha256-f3XdYIurOso9i+cXDXBLNaJSrFkrg3zp2a38lvrUQx8=",
+        "owner": "sshaw",
+        "repo": "git-link",
+        "rev": "ca01d013bd575710e2cd47001ee1ef6ee41667cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sshaw",
+        "repo": "git-link",
+        "type": "github"
+      }
+    },
     "git-modes": {
       "flake": false,
       "locked": {
@@ -779,6 +955,22 @@
         "owner": "magit",
         "repo": "git-modes",
         "type": "github"
+      }
+    },
+    "git-timemachine": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738057257,
+        "narHash": "sha256-jLzGzS2SnRTIjT3MzNbRUyZCY3Yiv2AVTVAmC/SkQt0=",
+        "ref": "refs/heads/master",
+        "rev": "d1346a76122595aeeb7ebb292765841c6cfd417b",
+        "revCount": 142,
+        "type": "git",
+        "url": "https://codeberg.org/pidu/git-timemachine.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/pidu/git-timemachine.git"
       }
     },
     "hcl-mode": {
@@ -893,6 +1085,22 @@
         "type": "github"
       }
     },
+    "link-hint": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757552227,
+        "narHash": "sha256-FrWXo7R39qdiHa+Z2CFvqm6NBuG6YWXsYE/j7wjPP+w=",
+        "owner": "noctuid",
+        "repo": "link-hint.el",
+        "rev": "8fda5dcb9caff5a3c49d22b82e570ac9e29af7dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctuid",
+        "repo": "link-hint.el",
+        "type": "github"
+      }
+    },
     "llama": {
       "flake": false,
       "locked": {
@@ -938,6 +1146,22 @@
       "original": {
         "owner": "magit",
         "repo": "magit",
+        "type": "github"
+      }
+    },
+    "magit-todos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759075911,
+        "narHash": "sha256-/YhvKLarMkUGwvb6kcZZxCpg9oyaPqF3hTX+PN7Dbpo=",
+        "owner": "alphapapa",
+        "repo": "magit-todos",
+        "rev": "7294a95580bddf7232f2d205efae312dc24c5f61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alphapapa",
+        "repo": "magit-todos",
         "type": "github"
       }
     },
@@ -1053,6 +1277,22 @@
         "type": "github"
       }
     },
+    "nov": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792691147,
+        "narHash": "sha256-I7x4ZXhe9+WFQ9OJ566ZwnPVwldzmPWb5DDxWbaXAQ0=",
+        "ref": "refs/heads/master",
+        "rev": "b1fdcbd41c037ab50dce29db878f2ab226ed66c3",
+        "revCount": 150,
+        "type": "git",
+        "url": "https://depp.brause.cc/nov.el.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://depp.brause.cc/nov.el.git"
+      }
+    },
     "nushell-ts-mode": {
       "flake": false,
       "locked": {
@@ -1066,6 +1306,22 @@
       "original": {
         "owner": "herbertjones",
         "repo": "nushell-ts-mode",
+        "type": "github"
+      }
+    },
+    "olivetti": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779588819,
+        "narHash": "sha256-ukByQAF4jK6Cmtglo4k/wer0zYDfBIHyHJbzUcjzv88=",
+        "owner": "rnkn",
+        "repo": "olivetti",
+        "rev": "d2ccae56b442d9c5b06dd2481057abbd7eb82551",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rnkn",
+        "repo": "olivetti",
         "type": "github"
       }
     },
@@ -1162,6 +1418,38 @@
       "original": {
         "owner": "minad",
         "repo": "osm",
+        "type": "github"
+      }
+    },
+    "pcre2el": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719703334,
+        "narHash": "sha256-XXfmGrVdGAQnEKqdn8o6UeXyhCY4TpGj3OTIH1xq40A=",
+        "owner": "joddie",
+        "repo": "pcre2el",
+        "rev": "b4d846d80dddb313042131cf2b8fbf647567e000",
+        "type": "github"
+      },
+      "original": {
+        "owner": "joddie",
+        "repo": "pcre2el",
+        "type": "github"
+      }
+    },
+    "persistent-scratch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677335978,
+        "narHash": "sha256-8rVrsS40/aZIPMh6XGAiHVHnxg51iiRgrVWzAgD17KA=",
+        "owner": "Fanael",
+        "repo": "persistent-scratch",
+        "rev": "5ff41262f158d3eb966826314516f23e0cb86c04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Fanael",
+        "repo": "persistent-scratch",
         "type": "github"
       }
     },
@@ -1283,8 +1571,10 @@
         "ansible": "ansible",
         "apheleia": "apheleia",
         "astro-ts-mode": "astro-ts-mode",
+        "async": "async",
         "avy": "avy",
         "base16-theme": "base16-theme",
+        "breadcrumb": "breadcrumb",
         "cape": "cape",
         "casual": "casual",
         "closql": "closql",
@@ -1302,7 +1592,9 @@
         "dape": "dape",
         "dash": "dash",
         "deflate": "deflate",
+        "devdocs": "devdocs",
         "diff-hl": "diff-hl",
+        "difftastic": "difftastic",
         "dirvish": "dirvish",
         "docker": "docker",
         "doom-modeline": "doom-modeline",
@@ -1310,15 +1602,21 @@
         "dotenv-mode": "dotenv-mode",
         "dumb-jump": "dumb-jump",
         "eldoc-box": "eldoc-box",
+        "elfeed": "elfeed",
         "elisp-refs": "elisp-refs",
         "emacsql": "emacsql",
         "embark": "embark",
         "embark-consult": "embark-consult",
         "envrc": "envrc",
+        "eros": "eros",
+        "esxml": "esxml",
         "evil": "evil",
         "evil-collection": "evil-collection",
         "evil-commentary": "evil-commentary",
+        "evil-goggles": "evil-goggles",
+        "evil-mc": "evil-mc",
         "evil-surround": "evil-surround",
+        "evil-textobj-tree-sitter": "evil-textobj-tree-sitter",
         "exunit": "exunit",
         "f": "f",
         "fish-mode": "fish-mode",
@@ -1327,7 +1625,9 @@
         "flycheck-golangci-lint": "flycheck-golangci-lint",
         "forge": "forge",
         "ghub": "ghub",
+        "git-link": "git-link",
         "git-modes": "git-modes",
+        "git-timemachine": "git-timemachine",
         "hcl-mode": "hcl-mode",
         "helpful": "helpful",
         "hl-todo": "hl-todo",
@@ -1335,9 +1635,11 @@
         "inheritenv": "inheritenv",
         "just-ts-mode": "just-ts-mode",
         "langtool": "langtool",
+        "link-hint": "link-hint",
         "llama": "llama",
         "magit": "magit",
         "magit-section": "magit-section",
+        "magit-todos": "magit-todos",
         "marginalia": "marginalia",
         "markdown-mode": "markdown-mode",
         "mermaid-mode": "mermaid-mode",
@@ -1345,13 +1647,17 @@
         "nerd-icons": "nerd-icons",
         "nerd-icons-completion": "nerd-icons-completion",
         "nix-ts-mode": "nix-ts-mode",
+        "nov": "nov",
         "nushell-ts-mode": "nushell-ts-mode",
+        "olivetti": "olivetti",
         "orderless": "orderless",
         "org-appear": "org-appear",
         "org-modern": "org-modern",
         "org-roam": "org-roam",
         "org-roam-ui": "org-roam-ui",
         "osm": "osm",
+        "pcre2el": "pcre2el",
+        "persistent-scratch": "persistent-scratch",
         "plantuml-mode": "plantuml-mode",
         "po-mode": "po-mode",
         "popper": "popper",
@@ -1362,6 +1668,8 @@
         "s": "s",
         "shrink-path": "shrink-path",
         "simple-httpd": "simple-httpd",
+        "spacious-padding": "spacious-padding",
+        "string-inflection": "string-inflection",
         "tablist": "tablist",
         "tabspaces": "tabspaces",
         "terraform-mode": "terraform-mode",
@@ -1428,6 +1736,38 @@
       "original": {
         "owner": "skeeto",
         "repo": "emacs-web-server",
+        "type": "github"
+      }
+    },
+    "spacious-padding": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792404505,
+        "narHash": "sha256-bdxfSNJmUQUaX3qBOQrJiT2vxs/R8AZZCf7AukQ8P8E=",
+        "owner": "protesilaos",
+        "repo": "spacious-padding",
+        "rev": "50519dfd38d1cceea03dfbef2c5ca5dfe922304f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "protesilaos",
+        "repo": "spacious-padding",
+        "type": "github"
+      }
+    },
+    "string-inflection": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763116921,
+        "narHash": "sha256-kSvDB+IgdAZpmqd3SfdyFz8anqe6KOahQa/t9F1POGY=",
+        "owner": "akicho8",
+        "repo": "string-inflection",
+        "rev": "4a2f87d7b47f5efe702a78f8a40a98df36eeba13",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akicho8",
+        "repo": "string-inflection",
         "type": "github"
       }
     },
