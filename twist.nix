@@ -120,6 +120,7 @@ in
     ./lisp/debug.el
     ./lisp/keys.el
     ./lisp/activity.el
+    ./lisp/chess.el
   ];
   lockDir = ./lock;
   registries = [

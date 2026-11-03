@@ -60,6 +60,11 @@
       repo = "casual";
       type = "github";
     };
+    chess = {
+      flake = false;
+      type = "tarball";
+      url = "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/chess-2.0.5.tar";
+    };
     closql = {
       flake = false;
       owner = "magit";
@@ -404,6 +409,12 @@
       flake = false;
       owner = "mhayashi1120";
       repo = "Emacs-langtool";
+      type = "github";
+    };
+    lichess = {
+      flake = false;
+      owner = "tmythicator";
+      repo = "lichess.el";
       type = "github";
     };
     link-hint = {

@@ -160,6 +160,19 @@
         "type": "github"
       }
     },
+    "chess": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607551438,
+        "narHash": "sha256-ciwkrC4vW8Z5FJC1qg54b1GauwQxRx1V/blf6nwws3w=",
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/chess-2.0.5.tar"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://raw.githubusercontent.com/d12frosted/elpa-mirror/d5da57c856aceeaa9789488ee8714b40becfbe5b/gnu/chess-2.0.5.tar"
+      }
+    },
     "closql": {
       "flake": false,
       "locked": {
@@ -1085,6 +1098,22 @@
         "type": "github"
       }
     },
+    "lichess": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783674876,
+        "narHash": "sha256-CmvlasdLTyT8P3WftGtx8q798E4xDfzzfO/H26rEB7U=",
+        "owner": "tmythicator",
+        "repo": "lichess.el",
+        "rev": "572a6a353e2113c8a95564b9bea1f2896e6d3dab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmythicator",
+        "repo": "lichess.el",
+        "type": "github"
+      }
+    },
     "link-hint": {
       "flake": false,
       "locked": {
@@ -1577,6 +1606,7 @@
         "breadcrumb": "breadcrumb",
         "cape": "cape",
         "casual": "casual",
+        "chess": "chess",
         "closql": "closql",
         "code-cells": "code-cells",
         "combobulate": "combobulate",
@@ -1635,6 +1665,7 @@
         "inheritenv": "inheritenv",
         "just-ts-mode": "just-ts-mode",
         "langtool": "langtool",
+        "lichess": "lichess",
         "link-hint": "link-hint",
         "llama": "llama",
         "magit": "magit",
