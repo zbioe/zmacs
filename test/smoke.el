@@ -17,7 +17,9 @@
                            yasnippet dirvish
                            ;; loaded with the first code file, or on idle
                            evil-textobj-tree-sitter evil-goggles evil-mc eros
-                           pixel-scroll repeat goto-addr winner)))
+                           pixel-scroll repeat goto-addr winner
+                           ;; powerthesaurus' autoloads required it (twist.nix)
+                           transient)))
 (defvar zmacs-test-startup-warnings zmacs-test-warnings)
 (defvar zmacs-test-startup-errors zmacs-test-errors)
 
@@ -88,6 +90,31 @@ evil had the command-line window on C-f there, and C-a/C-e/C-u in insert."
     (should (= (current-column) 2))
     (zmacs/beginning-of-line-dwim)
     (should (= (current-column) 0))))
+
+(ert-deftest zmacs/doom-keys ()
+  "Doom's keys: C-, as leader while typing, ]/[ pairs, g/z, SPC w = C-w."
+  (with-temp-buffer
+    (emacs-lisp-mode)
+    (evil-local-mode 1)
+    (evil-normal-state)
+    (evil-normalize-keymaps)
+    (dolist (b '(("]e" . flycheck-next-error) ("]d" . diff-hl-next-hunk)
+                 ("]s" . jinx-next) ("]t" . hl-todo-next)
+                 ("g=" . evil-numbers/inc-at-pt) ("gx" . evil-exchange)
+                 ("gp" . zmacs/reselect-paste) ("zx" . kill-current-buffer)
+                 ("SPC w H" . windmove-swap-states-left)
+                 ("SPC w v" . evil-window-vsplit)
+                 ("SPC TAB 3" . zmacs/workspace-3)
+                 ("SPC s o" . zmacs/lookup-online)
+                 ("SPC t G" . zmacs/grammar-check)))
+      (should (equal (cons (car b) (key-binding (kbd (car b)))) b)))
+    (evil-insert-state)
+    (should (eq (key-binding (kbd "C-, f f")) #'find-file))
+    (insert "x = 41")
+    (backward-char)
+    (evil-normal-state)
+    (call-interactively #'evil-numbers/inc-at-pt)
+    (should (equal (buffer-string) "x = 42"))))
 
 (ert-deftest zmacs/dired-keys ()
   "RET and C-m open in dired (evil-collection), C-n/C-p move."
@@ -224,7 +251,13 @@ multiple cursors that leave our C-n/C-p alone."
     (jinx--load-dicts)
     (should (= (length jinx--dicts) 2))
     (should (seq-some (lambda (d) (jinx--mod-check d "olá")) jinx--dicts))
-    (should-not (seq-some (lambda (d) (jinx--mod-check d "xyzzq")) jinx--dicts))))
+    (should-not (seq-some (lambda (d) (jinx--mod-check d "xyzzq")) jinx--dicts)))
+  ;; Spanish ships too, for SPC t S
+  (with-temp-buffer
+    (setq-local jinx-languages "es_ES")
+    (jinx--load-dicts)
+    (should (= (length jinx--dicts) 1))
+    (should (jinx--mod-check (car jinx--dicts) "mañana"))))
 
 (ert-deftest zmacs/lsp-booster ()
   "Server commands run through emacs-lsp-booster."

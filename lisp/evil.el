@@ -77,7 +77,6 @@
     (kbd "<leader>p!") #'project-shell-command
     ;; git
     (kbd "<leader>gg") #'magit-status
-    (kbd "<leader>gb") #'magit-blame-addition
     ;; code / lsp
     (kbd "<leader>ca") #'eglot-code-actions
     (kbd "<leader>cr") #'eglot-rename
@@ -96,17 +95,7 @@
     (kbd "<leader>hk") #'helpful-key
     (kbd "<leader>hm") #'describe-mode
     (kbd "<leader>hb") #'embark-bindings
-    ;; windows
-    (kbd "<leader>wv") #'evil-window-vsplit
-    (kbd "<leader>ws") #'evil-window-split
-    (kbd "<leader>wd") #'evil-window-delete
-    (kbd "<leader>wo") #'delete-other-windows
-    (kbd "<leader>wu") #'winner-undo
-    (kbd "<leader>wr") #'winner-redo
-    (kbd "<leader>wh") #'evil-window-left
-    (kbd "<leader>wj") #'evil-window-down
-    (kbd "<leader>wk") #'evil-window-up
-    (kbd "<leader>wl") #'evil-window-right
+    ;; windows: SPC w is C-w (bindings.el)
     ;; toggles
     (kbd "<leader>tl") #'display-line-numbers-mode
     (kbd "<leader>tw") #'visual-line-mode))

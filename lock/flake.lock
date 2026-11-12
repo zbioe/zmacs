@@ -746,6 +746,22 @@
         "type": "github"
       }
     },
+    "evil-exchange": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641880681,
+        "narHash": "sha256-MBx9C/DSRgMVYmSgP3r7aoVnMRN9YfW55m4AMDLi2HY=",
+        "owner": "Dewdrops",
+        "repo": "evil-exchange",
+        "rev": "5f0a2d41434c17c6fb02e4f744043775de1c63a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Dewdrops",
+        "repo": "evil-exchange",
+        "type": "github"
+      }
+    },
     "evil-goggles": {
       "flake": false,
       "locked": {
@@ -775,6 +791,22 @@
       "original": {
         "owner": "gabesoft",
         "repo": "evil-mc",
+        "type": "github"
+      }
+    },
+    "evil-numbers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767430255,
+        "narHash": "sha256-tPOeSplLoBLScct/SlaqvkwctAqIWjKW0fzLaqwloR0=",
+        "owner": "juliapath",
+        "repo": "evil-numbers",
+        "rev": "616aff9e5cee012954756ed2715209fa90308cdf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "juliapath",
+        "repo": "evil-numbers",
         "type": "github"
       }
     },
@@ -1034,6 +1066,22 @@
         "type": "github"
       }
     },
+    "ht": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688363925,
+        "narHash": "sha256-suE9ncN4rTA/9GcfAK6B+m9vnE8pYpfGavCFrXpA0+8=",
+        "owner": "Wilfred",
+        "repo": "ht.el",
+        "rev": "1c49aad1c820c86f7ee35bf9fff8429502f60fef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Wilfred",
+        "repo": "ht.el",
+        "type": "github"
+      }
+    },
     "indent-bars": {
       "flake": false,
       "locked": {
@@ -1063,6 +1111,22 @@
       "original": {
         "owner": "purcell",
         "repo": "inheritenv",
+        "type": "github"
+      }
+    },
+    "jeison": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676716312,
+        "narHash": "sha256-BflK4qh2n5jOQ5HZOse2K5Q3NGoicwDmvM7d8L6A9cY=",
+        "owner": "SavchenkoValeriy",
+        "repo": "jeison",
+        "rev": "19a51770f24eaa7b538c7be6a8a5c25d154b641f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SavchenkoValeriy",
+        "repo": "jeison",
         "type": "github"
       }
     },
@@ -1546,6 +1610,22 @@
         "type": "github"
       }
     },
+    "powerthesaurus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682529572,
+        "narHash": "sha256-bzh4a4dY14NN3X35otryaIT9RB1FBb9JuT1fLnlGbaU=",
+        "owner": "SavchenkoValeriy",
+        "repo": "emacs-powerthesaurus",
+        "rev": "4b97797cf789aaba411c61a85fe23474ebc5bedc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SavchenkoValeriy",
+        "repo": "emacs-powerthesaurus",
+        "type": "github"
+      }
+    },
     "prisma-ts-mode": {
       "flake": false,
       "locked": {
@@ -1575,6 +1655,22 @@
       "original": {
         "owner": "emacsattic",
         "repo": "protobuf-ts-mode",
+        "type": "github"
+      }
+    },
+    "quickrun": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781878129,
+        "narHash": "sha256-zFhuriNZ7l0mxHF9KY0+tFWyYa6Q3txqg0Iv/h5iM7s=",
+        "owner": "emacsorphanage",
+        "repo": "quickrun",
+        "rev": "a25264bead36ea4cb8c6fe6ba3755508f5cb8d83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacsorphanage",
+        "repo": "quickrun",
         "type": "github"
       }
     },
@@ -1643,8 +1739,10 @@
         "evil": "evil",
         "evil-collection": "evil-collection",
         "evil-commentary": "evil-commentary",
+        "evil-exchange": "evil-exchange",
         "evil-goggles": "evil-goggles",
         "evil-mc": "evil-mc",
+        "evil-numbers": "evil-numbers",
         "evil-surround": "evil-surround",
         "evil-textobj-tree-sitter": "evil-textobj-tree-sitter",
         "exunit": "exunit",
@@ -1661,8 +1759,10 @@
         "hcl-mode": "hcl-mode",
         "helpful": "helpful",
         "hl-todo": "hl-todo",
+        "ht": "ht",
         "indent-bars": "indent-bars",
         "inheritenv": "inheritenv",
+        "jeison": "jeison",
         "just-ts-mode": "just-ts-mode",
         "langtool": "langtool",
         "lichess": "lichess",
@@ -1693,14 +1793,18 @@
         "po-mode": "po-mode",
         "popper": "popper",
         "powershell": "powershell",
+        "powerthesaurus": "powerthesaurus",
         "prisma-ts-mode": "prisma-ts-mode",
         "protobuf-ts-mode": "protobuf-ts-mode",
+        "quickrun": "quickrun",
         "rainbow-delimiters": "rainbow-delimiters",
         "s": "s",
+        "shift-number": "shift-number",
         "shrink-path": "shrink-path",
         "simple-httpd": "simple-httpd",
         "spacious-padding": "spacious-padding",
         "string-inflection": "string-inflection",
+        "sudo-edit": "sudo-edit",
         "tablist": "tablist",
         "tabspaces": "tabspaces",
         "terraform-mode": "terraform-mode",
@@ -1736,6 +1840,22 @@
         "owner": "magnars",
         "repo": "s.el",
         "type": "github"
+      }
+    },
+    "shift-number": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782007639,
+        "narHash": "sha256-yUFQZK4PZ2xc88gfgnrrl+DwrTvEKEq64rRgzfHbx6I=",
+        "ref": "refs/heads/main",
+        "rev": "52f4d32080cca50da0f88b2141d597827c7341cf",
+        "revCount": 70,
+        "type": "git",
+        "url": "https://codeberg.org/ideasman42/emacs-shift-number"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/ideasman42/emacs-shift-number"
       }
     },
     "shrink-path": {
@@ -1799,6 +1919,22 @@
       "original": {
         "owner": "akicho8",
         "repo": "string-inflection",
+        "type": "github"
+      }
+    },
+    "sudo-edit": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1659359864,
+        "narHash": "sha256-hRfS4fGXuXd/GIsgszfci62/lU8Tp7CNuTkw8vOti4c=",
+        "owner": "nflath",
+        "repo": "sudo-edit",
+        "rev": "74eb1e6986461baed9a9269566ff838530b4379b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nflath",
+        "repo": "sudo-edit",
         "type": "github"
       }
     },

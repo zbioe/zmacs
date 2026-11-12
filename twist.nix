@@ -85,6 +85,14 @@ let
         sed -i '/^;;;###autoload$/{N;s/^;;;###autoload\n\((require \)/\1/}' combobulate.el
       '';
     };
+    # its autoloads would (require 'transient) and define a hydra/transient
+    # at every start (~90ms, the byte compiler with them): keep those forms
+    # in the package, run when it loads
+    powerthesaurus = _: _: {
+      preBuild = ''
+        sed -i '/^;;;###autoload$/{N;s/^;;;###autoload\n\((when (require \)/\1/}' powerthesaurus.el
+      '';
+    };
     # its -pkg.el has keywords after the requires, which twist can't parse
     base16-theme = _: _: { packageRequires = { }; };
     # savannah.gnu.org is often down; pull tramp from a mirror
@@ -119,6 +127,7 @@ in
     ./lisp/help.el
     ./lisp/debug.el
     ./lisp/keys.el
+    ./lisp/bindings.el
     ./lisp/activity.el
     ./lisp/chess.el
   ];

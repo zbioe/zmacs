@@ -93,6 +93,7 @@
             paths = with pkgs.hunspellDicts; [
               en_US
               pt_BR
+              es_ES
             ];
           };
 

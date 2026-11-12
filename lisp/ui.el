@@ -61,6 +61,58 @@
 (unless (zmacs/fallback-fontset)
   (add-hook 'server-after-make-frame-hook #'zmacs/fallback-fontset))
 
+;; the tab bar as part of the same plane: no boxes, close or "+" buttons,
+;; tabs only as wide as their name, "N name" (N is SPC TAB N), the current
+;; one in the normal text colour, bold, underlined in the theme's accent,
+;; the others dimmed. Tabs are named after their project (else the buffer),
+;; so two tabs on the same file no longer read "default.nix default.nix"
+(setq tab-bar-close-button-show nil
+      tab-bar-new-button-show nil
+      tab-bar-auto-width nil
+      tab-bar-tab-hints t
+      tab-bar-separator " "
+      tab-bar-format '(tab-bar-format-tabs tab-bar-separator)
+      tab-bar-tab-name-function #'zmacs/tab-name
+      tab-bar-tab-name-format-function #'zmacs/tab-format)
+
+(defun zmacs/tab-name ()
+  "The current tab's name: its project's, else its buffer's."
+  (truncate-string-to-width
+   (if-let* ((proj (project-current)))
+       (project-name proj)
+     (buffer-name (window-buffer (minibuffer-selected-window))))
+   24 nil nil "…"))
+
+(defun zmacs/tab-format (tab i)
+  "\" N name \" for TAB at position I, in its face, the number dimmed."
+  (let ((face (funcall tab-bar-tab-face-function tab)))
+    (concat (propertize (format " %d " i) 'face `(shadow ,face))
+            (propertize (concat (alist-get 'name tab) " ") 'face face))))
+
+(defun zmacs/style-tab-bar (&rest _)
+  "Paint the tab bar like the rest of the frame."
+  ;; colours from a graphic frame: a daemon's initial (terminal) frame has
+  ;; none, and a live theme switch may run from it (emacsclient -e)
+  (when-let* ((frame (seq-find #'display-graphic-p
+                               (cons (selected-frame) (frame-list)))))
+    (let* ((bg (or (zmacs/system-background) (face-background 'default frame t)))
+           (fg (face-foreground 'default frame t))
+           (dim (face-foreground 'shadow frame t))
+           (accent (or (face-foreground 'font-lock-keyword-face frame t) fg))
+           ;; a box in the background colour is padding, not a frame
+           (pad `(:line-width (4 . 6) :color ,bg)))
+      (set-face-attribute 'tab-bar nil :background bg :foreground dim
+                          :box nil :inherit 'default :height 1.0)
+      (set-face-attribute 'tab-bar-tab nil :background bg :foreground fg
+                          :weight 'bold :box pad :inherit nil
+                          :underline `(:color ,accent :position t))
+      (set-face-attribute 'tab-bar-tab-inactive nil :background bg
+                          :foreground dim :weight 'normal :box pad
+                          :inherit nil :underline nil))))
+(add-hook 'enable-theme-functions #'zmacs/style-tab-bar 90)
+;; and the daemon's first graphic frame, when there was none before
+(add-hook 'server-after-make-frame-hook #'zmacs/style-tab-bar)
+
 ;; colours follow dotnix's `theme' state when present, else a built-in fallback
 (use-package doom-themes
   :ensure t
@@ -82,6 +134,7 @@
           t t))
   (unless custom-enabled-themes
     (load-theme (or (bound-and-true-p doom-theme) 'doom-one) t))
+  (zmacs/style-tab-bar)
   (require 'doom-themes-ext-org nil t)
   (when (fboundp 'doom-themes-org-config)
     (doom-themes-org-config)))
@@ -108,7 +161,9 @@
         tabspaces-default-tab "main"
         tabspaces-remove-to-default t
         tabspaces-use-filtered-buffers-as-default t
-        tabspaces-session nil)
+        ;; save the workspaces on exit; SPC TAB R / SPC q l bring them back
+        tabspaces-session t
+        tabspaces-session-auto-restore nil)
   ;; TAB, not <tab>: a terminal frame only sends TAB, and a GUI's <tab> falls
   ;; back to it
   (with-eval-after-load 'evil

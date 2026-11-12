@@ -19,7 +19,15 @@
     "SPC d" "+debug"
     "SPC a" "actions (embark)"
     "SPC '" "resume last search"
-    "SPC TAB" "+workspace"))
+    "SPC TAB" "+workspace"
+    "SPC i" "+insert"
+    "SPC q" "+quit"
+    "SPC g c" "+create"
+    "SPC g f" "+find"
+    "SPC g l" "+list"
+    "SPC w m" "+maximize"
+    "SPC x" "scratch"
+    "SPC *" "search symbol in project"))
 
 ;; discoverable transient menus (SPC-less) for the heavy builtin modes
 (use-package casual

@@ -280,6 +280,12 @@
       repo = "evil-commentary";
       type = "github";
     };
+    evil-exchange = {
+      flake = false;
+      owner = "Dewdrops";
+      repo = "evil-exchange";
+      type = "github";
+    };
     evil-goggles = {
       flake = false;
       owner = "edkolev";
@@ -290,6 +296,12 @@
       flake = false;
       owner = "gabesoft";
       repo = "evil-mc";
+      type = "github";
+    };
+    evil-numbers = {
+      flake = false;
+      owner = "juliapath";
+      repo = "evil-numbers";
       type = "github";
     };
     evil-surround = {
@@ -387,6 +399,12 @@
       repo = "hl-todo";
       type = "github";
     };
+    ht = {
+      flake = false;
+      owner = "Wilfred";
+      repo = "ht.el";
+      type = "github";
+    };
     indent-bars = {
       flake = false;
       owner = "jdtsmith";
@@ -397,6 +415,12 @@
       flake = false;
       owner = "purcell";
       repo = "inheritenv";
+      type = "github";
+    };
+    jeison = {
+      flake = false;
+      owner = "SavchenkoValeriy";
+      repo = "jeison";
       type = "github";
     };
     just-ts-mode = {
@@ -577,6 +601,12 @@
       repo = "powershell.el";
       type = "github";
     };
+    powerthesaurus = {
+      flake = false;
+      owner = "SavchenkoValeriy";
+      repo = "emacs-powerthesaurus";
+      type = "github";
+    };
     prisma-ts-mode = {
       flake = false;
       owner = "nverno";
@@ -587,6 +617,12 @@
       flake = false;
       owner = "emacsattic";
       repo = "protobuf-ts-mode";
+      type = "github";
+    };
+    quickrun = {
+      flake = false;
+      owner = "emacsorphanage";
+      repo = "quickrun";
       type = "github";
     };
     rainbow-delimiters = {
@@ -600,6 +636,11 @@
       owner = "magnars";
       repo = "s.el";
       type = "github";
+    };
+    shift-number = {
+      flake = false;
+      type = "git";
+      url = "https://codeberg.org/ideasman42/emacs-shift-number";
     };
     shrink-path = {
       flake = false;
@@ -623,6 +664,12 @@
       flake = false;
       owner = "akicho8";
       repo = "string-inflection";
+      type = "github";
+    };
+    sudo-edit = {
+      flake = false;
+      owner = "nflath";
+      repo = "sudo-edit";
       type = "github";
     };
     tablist = {

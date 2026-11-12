@@ -240,7 +240,7 @@
   :init
   (with-eval-after-load 'evil
     (evil-define-key 'normal 'global
-      (kbd "<leader>ci") #'string-inflection-all-cycle)))
+      (kbd "<leader>cI") #'string-inflection-all-cycle)))
 
 ;; *scratch* survives restarts
 (use-package persistent-scratch
