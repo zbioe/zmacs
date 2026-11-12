@@ -317,10 +317,17 @@
 
 ;; evil
 (evil-define-command zmacs/reselect-paste ()
-  "Select the text that was just pasted."
-  (let ((beg (evil-get-marker ?\[)) (end (evil-get-marker ?\])))
-    (when (and beg end)
-      (evil-visual-make-selection beg (max beg (1- end))))))
+  "Select the text that was just pasted (whole lines if it was lines)."
+  (pcase-let ((`(,_ ,_ ,_ ,beg ,end . ,_) evil-last-paste))
+    (unless (and beg end) (user-error "Nothing pasted yet"))
+    (cond
+     ;; lines pasted below: evil inserted "\ntext" at the end of the line
+     ((and (eq (char-after beg) ?\n) (save-excursion (goto-char end) (eolp)))
+      (evil-visual-select (1+ beg) end 'line))
+     ;; lines pasted above: "text\n" at a line start
+     ((and (eq (char-before end) ?\n) (save-excursion (goto-char beg) (bolp)))
+      (evil-visual-select beg (1- end) 'line))
+     (t (evil-visual-select beg (1- end) 'char)))))
 
 (evil-define-operator zmacs/narrow-operator (beg end)
   "Narrow to the text of a motion."

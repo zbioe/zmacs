@@ -3,6 +3,24 @@
 ;; mu4e ships with Nix's mu (early-init.el puts it on load-path); the mu binary
 ;; and mbsync come on PATH. Secrets (SMTP password) live in ~/.authinfo, which
 ;; dotnix renders from sops; mbsync reads its own password via ~/.mbsyncrc.
+;; mu4e learns "my addresses" (for replies, the From of a context) from mu's
+;; database, created once with them: M-x zmacs/mail-init
+(defvar zmacs-mail-addresses
+  '("zbioe@protonmail.com" "zbioe@proton.me" "zbioe@pm.me"
+    "i@zbioe.com" "i@zagenda.me" "iuryfukuda@gmail.com")
+  "The addresses that are mine, given to `mu init'.")
+
+(defun zmacs/mail-init ()
+  "Create mu's database over ~/Mail with `zmacs-mail-addresses', then index."
+  (interactive)
+  (let ((mu (or (getenv "ZMACS_MU_BINARY") "mu")))
+    (async-shell-command
+     (format "%s init --maildir=%s %s && %s index"
+             mu (shell-quote-argument (expand-file-name "~/Mail"))
+             (mapconcat (lambda (a) (concat "--my-address=" (shell-quote-argument a)))
+                        zmacs-mail-addresses " ")
+             mu))))
+
 (use-package mu4e
   :commands (mu4e mu4e-compose-new)
   :init
@@ -18,10 +36,7 @@
         mu4e-context-policy 'pick-first
         mu4e-compose-context-policy 'ask
         message-send-mail-function #'smtpmail-send-it
-        mu4e-attachment-dir "~/Downloads"
-        mu4e-user-mail-address-list
-        '("zbioe@protonmail.com" "zbioe@proton.me" "zbioe@pm.me"
-          "i@zbioe.com" "i@zagenda.me" "iuryfukuda@gmail.com"))
+        mu4e-attachment-dir "~/Downloads")
   (setq mu4e-contexts
         (list
          (make-mu4e-context

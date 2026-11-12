@@ -67,7 +67,6 @@
 ;; the others dimmed. Tabs are named after their project (else the buffer),
 ;; so two tabs on the same file no longer read "default.nix default.nix"
 (setq tab-bar-close-button-show nil
-      tab-bar-new-button-show nil
       tab-bar-auto-width nil
       tab-bar-tab-hints t
       tab-bar-separator " "
@@ -76,12 +75,14 @@
       tab-bar-tab-name-format-function #'zmacs/tab-format)
 
 (defun zmacs/tab-name ()
-  "The current tab's name: its project's, else its buffer's."
-  (truncate-string-to-width
-   (if-let* ((proj (project-current)))
-       (project-name proj)
-     (buffer-name (window-buffer (minibuffer-selected-window))))
-   24 nil nil "…"))
+  "The current tab's name: its file's (or dired's) project, else its buffer's."
+  (let ((buf (window-buffer (minibuffer-selected-window))))
+    (truncate-string-to-width
+     (if-let* (((with-current-buffer buf (or buffer-file-name dired-directory)))
+               (proj (with-current-buffer buf (project-current))))
+         (project-name proj)
+       (buffer-name buf))
+     24 nil nil "…")))
 
 (defun zmacs/tab-format (tab i)
   "\" N name \" for TAB at position I, in its face, the number dimmed."
