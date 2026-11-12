@@ -30,6 +30,16 @@
                ("C-k" . corfu-previous)))
     (define-key corfu-map (kbd (car b)) (cdr b))))
 
+;; C-a goes to the indentation first, then to the line start (Doom's)
+(defun zmacs/beginning-of-line-dwim ()
+  "Move to the first non-blank character, or to the line start if already there."
+  (interactive)
+  (let ((pos (point)))
+    (back-to-indentation)
+    (when (= pos (point))
+      (move-beginning-of-line 1))))
+(global-set-key (kbd "C-a") #'zmacs/beginning-of-line-dwim)
+
 ;; --- evil: movement in normal/motion buffers (dired, help, magit, code) -----
 (with-eval-after-load 'evil
   (dolist (map (list evil-normal-state-map evil-motion-state-map))
@@ -40,6 +50,18 @@
     (define-key map (kbd "C-f") #'evil-forward-char)
     (define-key map (kbd "C-b") #'evil-backward-char)
     (define-key map (kbd "C-l") #'evil-forward-char))
+
+  ;; readline keys while typing, as in Doom: evil's insert state takes C-a
+  ;; (paste last insertion), C-e (copy from below) and C-u (scroll's twin)
+  (define-key evil-insert-state-map (kbd "C-a") #'zmacs/beginning-of-line-dwim)
+  (define-key evil-insert-state-map (kbd "C-e") #'move-end-of-line)
+  ;; the : and / prompts: evil puts the command-line window on C-f and
+  ;; beginning-of-line on C-b there, so C-f/C-b didn't move the cursor
+  (dolist (map (list evil-ex-completion-map evil-ex-search-keymap))
+    (define-key map (kbd "C-a") #'move-beginning-of-line)
+    (define-key map (kbd "C-e") #'move-end-of-line)
+    (define-key map (kbd "C-f") #'forward-char)
+    (define-key map (kbd "C-b") #'backward-char))
 
   ;; macros move to Q; q is freed so special buffers' own q (quit, via
   ;; evil-collection) shows through and a plain buffer's q does nothing

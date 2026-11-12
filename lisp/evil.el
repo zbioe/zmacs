@@ -17,6 +17,7 @@
   :init
   (setq evil-want-keybinding nil
         evil-want-C-u-scroll t
+        evil-want-C-u-delete t ; insert C-u: delete back to indentation
         evil-want-C-i-jump nil
         evil-undo-system 'undo-redo
         evil-split-window-below t

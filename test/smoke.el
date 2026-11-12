@@ -68,6 +68,27 @@
   (should (eq (zmacs-test--key "C-h") #'delete-backward-char))
   (should (eq (zmacs-test--key "C-w") #'backward-kill-word)))
 
+(ert-deftest zmacs/readline-keys ()
+  "C-a/C-e/C-f/C-b/C-u edit the line while typing and in the : and / prompts.
+evil had the command-line window on C-f there, and C-a/C-e/C-u in insert."
+  (dolist (map (list evil-ex-completion-map evil-ex-search-keymap))
+    (should (eq (lookup-key map (kbd "C-f")) #'forward-char))
+    (should (eq (lookup-key map (kbd "C-b")) #'backward-char))
+    (should (eq (lookup-key map (kbd "C-e")) #'move-end-of-line)))
+  (with-temp-buffer
+    (evil-local-mode 1)
+    (evil-insert-state)
+    (should (eq (key-binding (kbd "C-f")) #'forward-char))
+    (should (eq (key-binding (kbd "C-b")) #'backward-char))
+    (should (eq (key-binding (kbd "C-a")) #'zmacs/beginning-of-line-dwim))
+    (should (eq (key-binding (kbd "C-e")) #'move-end-of-line))
+    (should (eq (key-binding (kbd "C-u")) #'evil-delete-back-to-indentation))
+    (insert "  foo")
+    (zmacs/beginning-of-line-dwim)
+    (should (= (current-column) 2))
+    (zmacs/beginning-of-line-dwim)
+    (should (= (current-column) 0))))
+
 (ert-deftest zmacs/dired-keys ()
   "RET and C-m open in dired (evil-collection), C-n/C-p move."
   (let ((buf (dired-noselect temporary-file-directory)))
